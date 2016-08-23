@@ -22,6 +22,8 @@ gem 'pg', '~> 0.18'
 
 gem 'faraday', '~> 0.9'
 gem 'faraday_middleware', '~> 0.10'
+gem 'sidekiq'
+gem 'clockwork'
 
 group :production, :development do
   gem 'puma', '~> 3.0'
