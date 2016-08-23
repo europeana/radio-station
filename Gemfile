@@ -20,6 +20,9 @@ gem 'pg', '~> 0.18'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
+gem 'faraday', '~> 0.9'
+gem 'faraday_middleware', '~> 0.10'
+
 group :production, :development do
   gem 'puma', '~> 3.0'
 end
