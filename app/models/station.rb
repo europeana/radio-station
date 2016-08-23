@@ -6,4 +6,12 @@ class Station < ApplicationRecord
 
   validates :name, :api_query, :slug, presence: true
   validates :name, :slug, uniqueness: true
+
+  def to_param
+    slug
+  end
+
+  def playlist
+    playlists.order('created_at DESC').limit(1).first
+  end
 end

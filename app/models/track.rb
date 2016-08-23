@@ -14,4 +14,8 @@ class Track < ApplicationRecord
       track.order = rand(2147483647) unless track.order.present? # PG int max
     end
   end
+
+  def uri
+    tune.web_resource_uri
+  end
 end
