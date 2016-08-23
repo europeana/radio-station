@@ -1,6 +1,9 @@
 # frozen_string_literal: true
+##
+# A track is a tune appearing at a particular place on a playlist
 class Track < ApplicationRecord
-  has_and_belongs_to_many :playlists
+  belongs_to :playlist
+  belongs_to :tune
 
-  validates :europeana_id, :web_resource_uri, :metadata, presence: true
+  validates :playlist_id, :tune_id, :order, presence: true
 end

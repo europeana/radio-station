@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  api_query: MyText
+classical:
+  name: Classical
+  api_query: type:"classical music"
 
-two:
-  name: MyString
-  api_query: MyText
+folk:
+  name: Folk
+  api_query: type:"folk music"

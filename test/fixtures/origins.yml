@@ -1,11 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  playlist_id: 1
-  tune: 1
-  order: 10
+  europeana_record_id: /abc/123
+  metadata: 
 
 two:
-  playlist_id: 1
-  tune: 2
-  order: 5
+  europeana_record_id: /abc/124
+  metadata: 

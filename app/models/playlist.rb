@@ -1,5 +1,9 @@
 # frozen_string_literal: true
+##
+# A playlist is a set of tunes to be played on a station
 class Playlist < ApplicationRecord
   belongs_to :station
-  has_and_belongs_to_many :tracks
+  has_many :tracks, dependent: :destroy
+
+  validates :station_id, presence: true
 end
