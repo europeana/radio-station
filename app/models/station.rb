@@ -12,6 +12,6 @@ class Station < ApplicationRecord
   end
 
   def playlist
-    playlists.order('created_at DESC').limit(1).first
+    playlists.where(live: true).order('created_at DESC').first
   end
 end

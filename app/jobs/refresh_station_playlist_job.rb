@@ -1,7 +1,6 @@
 # frozen_string_literal: true
-# @todo Separate jobs for refreshing playlists and refreshing existing track metadata
 class RefreshStationPlaylistJob < ApplicationJob
-  queue_as :default
+  queue_as :api_search
 
   ##
   # @param station_id [Fixnum] ID of `Station` to refresh tracks for
@@ -18,11 +17,21 @@ class RefreshStationPlaylistJob < ApplicationJob
     end
 
     response.body['items'].each do |track|
-      PlayTunesFromRecordsJob.perform_later(track['id'], playlist.id)
+      PlayTunesFromRecordsJob.perform_later(track['id'], playlist.id, track_origin_id(track))
     end
   end
 
   protected
+
+  def track_origin_id(track)
+    origin = Origin.find_by_europeana_record_id(track['id'])
+
+    if origin.present? && track['timestamp'].present? && ((origin.updated_at.to_i * 1000) >= track['timestamp'])
+      origin.id
+    else
+      nil
+    end
+  end
 
   def url(station, cursor = '*')
     uri = URI.parse(API_BASE_URL + '/search.json')

@@ -1,23 +1,30 @@
 # frozen_string_literal: true
+require 'sidekiq/api'
+
 class PlayTunesFromRecordsJob < ApplicationJob
-  queue_as :default
+  queue_as :api_record
 
   ##
   # @param europeana_id [String] Europeana record ID of `Origin` to add to playlist
   # @param playlist_id [Fixnum] ID of `Playlist` to write track to
-  def perform(europeana_record_id, playlist_id)
-    # Get record from API
-    record = fetch(europeana_record_id)
+  def perform(europeana_record_id, playlist_id, origin_id = nil)
+    if origin_id.present?
+      # Get record from `Origin`
+      origin = Origin.find(origin_id)
+      record = origin.metadata
+    else
+      # Get record from API
+      record = fetch(europeana_record_id)
 
-    # Extract pertinent web resources from API response
-    # - finish here if there are none
+      # Create or update `Origin` record
+      origin = Origin.find_or_create_by(europeana_record_id: europeana_record_id)
+      origin.metadata = record
+      origin.save!
+    end
+
+    # Extract pertinent web resources from API response & return if there are none
     record_tunes = extract_tunes(record)
     return if record_tunes.blank?
-
-    # Create or update `Origin` record
-    origin = Origin.find_or_create_by(europeana_record_id: europeana_record_id)
-    origin.metadata = record
-    origin.save!
 
     # Create `Tune` and `Track` records
     record_tunes.each do |record_tune|
@@ -28,6 +35,19 @@ class PlayTunesFromRecordsJob < ApplicationJob
       # Create `Track` record
       Track.create!(playlist_id: playlist_id, tune_id: tune.id)
     end
+
+    # Make playlist live if this is the last tune
+    unless queue_has_more_jobs?(europeana_record_id, playlist_id)
+      playlist = Playlist.find(playlist_id)
+      playlist.live = true
+      playlist.save!
+      Playlist.where('station_id = ? AND id <> ?', playlist.station_id, playlist_id).update_all(live: false)
+    end
+  end
+
+  def queue_has_more_jobs?(europeana_record_id, playlist_id)
+    Sidekiq::Queue.new(:api_record).any? { |job| job.args.first['arguments'][0..1] == [europeana_record_id, playlist_id] } ||
+      Sidekiq::Queue.new(:api_search).any? { |job| job.args.first['arguments'][2] == playlist_id }
   end
 
   def extract_tunes(record)

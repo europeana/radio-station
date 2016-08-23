@@ -3,5 +3,6 @@ json.station do
   json.link station_url(@station)
   json.playlist @station.playlist.tracks do |track|
     json.link track.uri
+    json.metadata track.metadata
   end
 end

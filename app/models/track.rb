@@ -18,4 +18,8 @@ class Track < ApplicationRecord
   def uri
     tune.web_resource_uri
   end
+
+  def metadata
+    tune.metadata
+  end
 end

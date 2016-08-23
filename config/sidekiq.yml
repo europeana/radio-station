@@ -1,0 +1,5 @@
+---
+:queues:
+  - api_search
+  - api_record
+  - playlist_live

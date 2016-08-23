@@ -6,4 +6,8 @@ class Origin < ApplicationRecord
 
   validates :europeana_record_id, uniqueness: true, presence: true
   validates :metadata, presence: true
+
+  def web_resources
+    metadata['aggregations'].map { |agg| agg['webResources'] }.flatten
+  end
 end
