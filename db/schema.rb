@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823091907) do
+ActiveRecord::Schema.define(version: 20160823133334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20160823091907) do
     t.text     "api_query"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "slug"
+    t.index ["slug"], name: "index_stations_on_slug", unique: true, using: :btree
   end
 
   create_table "tracks", force: :cascade do |t|

@@ -3,7 +3,9 @@
 classical:
   name: Classical
   api_query: type:"classical music"
+  slug: classical
 
 folk:
   name: Folk
   api_query: type:"folk music"
+  slug: folk
