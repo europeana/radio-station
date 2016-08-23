@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  europeana_id: /abc/123
+  web_resource_uri: http://provider.example.com/abc/123
+  metadata: {}
+
+two:
+  europeana_id: /abc/124
+  web_resource_uri: http://provider.example.com/abc/124
+  metadata: {}
