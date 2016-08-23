@@ -5,5 +5,5 @@ class StationTest < ActiveSupport::TestCase
   should validate_presence_of(:name)
   should validate_uniqueness_of(:name)
   should validate_presence_of(:api_query)
-  should have_and_belong_to_many(:tracks)
+  should have_many(:playlists)
 end
