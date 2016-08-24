@@ -34,7 +34,7 @@ class PlayTunesFromRecordsJob < ApplicationJob
       tune.save!
 
       # Create `Track` record
-      Track.create!(playlist_id: playlist_id, tune_id: tune.id)
+      Track.create(playlist_id: playlist_id, tune_id: tune.id)
     end
 
     # Make playlist live if this is the last tune
