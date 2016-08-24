@@ -2,8 +2,10 @@
 
 one:
   europeana_record_id: /abc/123
-  metadata: 
+  metadata:
+    about: /abc/123
 
 two:
   europeana_record_id: /abc/124
-  metadata: 
+  metadata:
+    about: /abc/124

@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  origin_id: 1
+  origin: one
   web_resource_uri: http://provider.example.com/abc/123
 
 two:
-  origin_id: 2
+  origin: two
   web_resource_uri: http://provider.example.com/abc/124
