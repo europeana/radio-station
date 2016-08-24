@@ -3,15 +3,16 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
-gem 'clockwork'
+gem 'clockwork', '~> 2.0'
 gem 'faraday', '~> 0.9'
 gem 'faraday_middleware', '~> 0.10'
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.6'
 gem 'pg', '~> 0.18'
+gem 'rack-cors'
 gem 'sidekiq'
 
 group :production, :development do
-  gem 'newrelic_rpm'
+  gem 'newrelic_rpm', '~> 3.16'
   gem 'puma', '~> 3.0'
 end
 
