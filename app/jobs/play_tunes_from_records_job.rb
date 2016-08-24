@@ -38,10 +38,7 @@ class PlayTunesFromRecordsJob < ApplicationJob
 
     # Make playlist live if this is the last tune
     unless queue_has_more_jobs?(europeana_record_id, playlist_id)
-      playlist = Playlist.find(playlist_id)
-      playlist.live = true
-      playlist.save!
-      Playlist.where('station_id = ? AND id <> ?', playlist.station_id, playlist_id).update_all(live: false)
+      MakePlaylistLiveJob.perform_later(playlist_id)
     end
   end
 

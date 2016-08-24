@@ -1,6 +1,6 @@
 ---
 :concurrency: 5
 :queues:
+  - playlist_live
   - api_search
   - api_record
-  - playlist_live
