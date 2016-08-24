@@ -6,7 +6,17 @@ class Tune < ApplicationRecord
   validates :origin_id, :web_resource_uri, presence: true
   validates :web_resource_uri, uniqueness: true
 
+  delegate :title, :thumbnail, :europeana_record_id, to: :origin
+
+  def uri
+    web_resource_uri
+  end
+
   def metadata
-    origin.web_resources.find { |wr| wr['about'] == web_resource_uri }
+    @metadata ||= origin.web_resources.find { |wr| wr['about'] == web_resource_uri }
+  end
+
+  def creator
+    Origin.creator(metadata) || origin.creator
   end
 end

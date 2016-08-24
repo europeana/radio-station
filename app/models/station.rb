@@ -14,4 +14,8 @@ class Station < ApplicationRecord
   def playlist
     playlists.where(live: true).order('created_at DESC').first
   end
+
+  def playlist_length
+    playlist.tracks.count
+  end
 end

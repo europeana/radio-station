@@ -7,7 +7,36 @@ class Origin < ApplicationRecord
   validates :europeana_record_id, uniqueness: true, presence: true
   validates :metadata, presence: true
 
+  def self.creator(edm)
+    return nil unless edm['dcCreator']
+    %w(en mul def).each do |key|
+      return edm['dcCreator'][key].first unless edm['dcCreator'][key].blank?
+    end
+    edm['dcCreator'].values.first.first
+  end
+
   def web_resources
     metadata['aggregations'].map { |agg| agg['webResources'] }.flatten
+  end
+
+  def thumbnail
+    @thumbnail ||= 'http://www.europeana.eu/api/v2/thumbnail-by-url.json?uri=' + CGI.escape(edm_object)
+  end
+
+  def edm_object
+    @edm_object ||= metadata['aggregations'].first['edmObject']
+  end
+
+  def title
+    metadata['title'].first
+  end
+
+  def proxy(europeana:)
+    metadata['proxies'].find { |proxy| proxy['europeanaProxy'] == europeana }
+  end
+
+  def creator
+    europeana_proxy = proxy(europeana: false)
+    self.class.creator(europeana_proxy) || 'Unknown'
   end
 end
