@@ -15,7 +15,7 @@ class Track < ApplicationRecord
   before_validation do |track|
     # Set a random track order, unique to this playlist
     while track.order.blank? or (Track.where(playlist_id: track.playlist_id, order: track.order).count > 0)
-      track.order = rand(2147483647) unless track.order.present? # PG int max
+      track.order = rand(2147483647) # PG int max
     end
   end
 end
