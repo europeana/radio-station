@@ -9,7 +9,7 @@ require 'active_record/railtie'
 require 'action_controller/railtie'
 # require "action_mailer/railtie"
 require 'action_view/railtie'
-require 'action_cable/engine'
+# require 'action_cable/engine'
 # require "sprockets/railtie"
 require 'rails/test_unit/railtie'
 
@@ -30,6 +30,8 @@ module Europeana
       config.api_only = true
 
       config.active_job.queue_adapter = :sidekiq
+      
+      config.time_zone = 'Amsterdam'
     end
   end
 end
