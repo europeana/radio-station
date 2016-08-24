@@ -6,14 +6,18 @@ class StationsController < ApplicationController
 
   def show
     @station = Station.find_by_slug!(params[:id])
-    @tracks = if @station.playlist.nil?
-                []
-              else
-                @station.playlist.tracks.limit(limit).offset(offset)
-              end
+    @tracks = tracks
   end
 
   protected
+
+  def tracks
+    if @station.playlist.nil?
+      []
+    else
+      @station.playlist.tracks.limit(limit).offset(offset)
+    end
+  end
 
   def limit
     l = (params[:rows] || 12).to_i
@@ -21,6 +25,10 @@ class StationsController < ApplicationController
   end
 
   def offset
-    (params[:start] || 0).to_i
+    o = (params[:start] || 0).to_i
+    while o >= @station.playlist_length
+      o = o - @station.playlist_length
+    end
+    o
   end
 end
