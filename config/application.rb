@@ -30,8 +30,17 @@ module Europeana
       config.api_only = true
 
       config.active_job.queue_adapter = :sidekiq
-      
+
+      # Amsterdam timezone
       config.time_zone = 'Amsterdam'
+
+      # Unrestricted CORS
+      config.middleware.insert_before 0, Rack::Cors do
+        allow do
+          origins '*'
+          resource '*', headers: :any, methods: [:get, :head, :options]
+        end
+      end
     end
   end
 end
