@@ -16,7 +16,7 @@ class RefreshStationPlaylistJob < ApplicationJob
       self.class.perform_later(station_id, response.body['nextCursor'], playlist.id)
     end
 
-    response.body['items'].each do |track|
+    response.body.fetch('items', []).each do |track|
       PlayTunesFromRecordsJob.perform_later(track['id'], playlist.id, track_origin_id(track))
     end
   end
