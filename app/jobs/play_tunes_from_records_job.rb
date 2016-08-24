@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'sidekiq/api'
 
+# @todo Name this something clearer, but less fun :`(
 class PlayTunesFromRecordsJob < ApplicationJob
   queue_as :api_record
 
@@ -37,13 +38,13 @@ class PlayTunesFromRecordsJob < ApplicationJob
     end
 
     # Make playlist live if this is the last tune
-    unless queue_has_more_jobs?(europeana_record_id, playlist_id)
+    unless queue_has_more_jobs?(playlist_id)
       MakePlaylistLiveJob.perform_later(playlist_id)
     end
   end
 
-  def queue_has_more_jobs?(europeana_record_id, playlist_id)
-    Sidekiq::Queue.new(:api_record).any? { |job| job.args.first['arguments'][0..1] == [europeana_record_id, playlist_id] } ||
+  def queue_has_more_jobs?(playlist_id)
+    Sidekiq::Queue.new(:api_record).any? { |job| job.args.first['arguments'][1] == playlist_id } ||
       Sidekiq::Queue.new(:api_search).any? { |job| job.args.first['arguments'][2] == playlist_id }
   end
 
