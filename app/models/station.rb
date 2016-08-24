@@ -16,6 +16,6 @@ class Station < ApplicationRecord
   end
 
   def playlist_length
-    playlist.tracks.count
+    (playlist.present? && playlist.tracks.present?) ? playlist.tracks.count : 0
   end
 end

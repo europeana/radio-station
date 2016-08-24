@@ -5,8 +5,12 @@ class StationsController < ApplicationController
   end
 
   def show
-    @station = Station.find_by_slug(params[:id])
-    @tracks = @station.playlist.tracks.limit(limit).offset(offset)
+    @station = Station.find_by_slug!(params[:id])
+    @tracks = if @station.playlist.nil?
+                []
+              else
+                @station.playlist.tracks.limit(limit).offset(offset)
+              end
   end
 
   protected
