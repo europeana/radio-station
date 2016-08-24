@@ -20,7 +20,13 @@ class Origin < ApplicationRecord
   end
 
   def thumbnail
-    @thumbnail ||= 'http://www.europeana.eu/api/v2/thumbnail-by-url.json?uri=' + CGI.escape(edm_object)
+    @thumbnail ||= begin
+      if edm_object.nil?
+        nil
+      else
+        'http://www.europeana.eu/api/v2/thumbnail-by-url.json?uri=' + CGI.escape(edm_object)
+      end
+    end
   end
 
   def edm_object
