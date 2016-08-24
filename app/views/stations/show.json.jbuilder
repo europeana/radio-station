@@ -8,6 +8,7 @@ json.station do
     json.creator track.creator
     json.thumbnail track.thumbnail
     json.europeanaId track.europeana_record_id
+    json.copyright track.edm_rights_label
     json.mimeType track.metadata['ebucoreHasMimeType']
     json.fileByteSize track.metadata['ebucoreFileByteSize']
     json.duration track.metadata['ebucoreDuration']

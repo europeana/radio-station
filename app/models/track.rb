@@ -7,7 +7,8 @@ class Track < ApplicationRecord
 
   has_one :origin, through: :tune
 
-  delegate :metadata, :thumbnail, :uri, :title, :creator, :europeana_record_id, to: :tune
+  delegate :metadata, :thumbnail, :uri, :title, :creator, :europeana_record_id,
+    :edm_rights, :edm_rights_label, to: :tune
 
   validates :playlist_id, :tune_id, :order, presence: true
   validates :tune_id, uniqueness: { scope: :playlist_id }

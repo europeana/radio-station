@@ -2,6 +2,8 @@
 ##
 # An origin represents the source of one or more tunes: a Europeana record
 class Origin < ApplicationRecord
+  include EDM::Rights
+
   has_many :tunes, dependent: :destroy
 
   validates :europeana_record_id, uniqueness: true, presence: true
@@ -44,5 +46,9 @@ class Origin < ApplicationRecord
   def creator
     europeana_proxy = proxy(europeana: false)
     self.class.creator(europeana_proxy) || 'Unknown'
+  end
+
+  def edm_rights
+    @edm_rights ||= metadata['aggregations'].first['edmRights']['def'].first
   end
 end
