@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resources :tracks, only: [] do
     get :play, on: :member
   end
+
+  resources :plays, only: :index
 end
