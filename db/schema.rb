@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825135651) do
+ActiveRecord::Schema.define(version: 20160825144846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,17 +31,10 @@ ActiveRecord::Schema.define(version: 20160825135651) do
   end
 
   create_table "plays", force: :cascade do |t|
-    t.string   "europeana_record_id"
-    t.string   "web_resource_uri"
-    t.string   "provider"
-    t.string   "station"
-    t.text     "title"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.index ["europeana_record_id"], name: "index_plays_on_europeana_record_id", using: :btree
-    t.index ["provider"], name: "index_plays_on_provider", using: :btree
-    t.index ["station"], name: "index_plays_on_station", using: :btree
-    t.index ["web_resource_uri"], name: "index_plays_on_web_resource_uri", using: :btree
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "track_id"
+    t.index ["track_id"], name: "index_plays_on_track_id", using: :btree
   end
 
   create_table "stations", force: :cascade do |t|

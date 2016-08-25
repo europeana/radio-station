@@ -1,8 +1,8 @@
 json.plays @recent do |play|
-  json.station play.station
-  json.audio play.web_resource_uri
-  json.title play.title
-  json.europeanaId play.europeana_record_id
-  json.provider play.provider
+  json.station play.track.station.name
+  json.audio play.track.uri
+  json.title play.track.title
+  json.europeanaId play.track.europeana_record_id
+  json.provider play.track.provider
   json.playedAt play.created_at
 end

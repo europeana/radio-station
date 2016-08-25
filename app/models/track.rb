@@ -7,6 +7,7 @@ class Track < ApplicationRecord
 
   has_one :origin, through: :tune
   has_one :station, through: :playlist
+  has_many :plays
 
   delegate :metadata, :thumbnail, :uri, :title, :creator, :europeana_record_id,
     :edm_rights, :edm_rights_label, :provider, to: :tune
@@ -37,7 +38,6 @@ class Track < ApplicationRecord
   end
 
   def log_play
-    Play.create!(europeana_record_id: europeana_record_id, web_resource_uri: uri,
-                 provider: provider, title: title, station: station.name)
+    Play.create!(track_id: id)
   end
 end
