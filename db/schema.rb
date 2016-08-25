@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823133334) do
+ActiveRecord::Schema.define(version: 20160825134059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,7 +55,9 @@ ActiveRecord::Schema.define(version: 20160823133334) do
     t.string   "web_resource_uri"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.string   "uuid",             null: false
     t.index ["origin_id"], name: "index_tunes_on_origin_id", using: :btree
+    t.index ["uuid"], name: "index_tunes_on_uuid", unique: true, using: :btree
     t.index ["web_resource_uri"], name: "index_tunes_on_web_resource_uri", unique: true, using: :btree
   end
 
