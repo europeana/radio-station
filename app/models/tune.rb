@@ -8,7 +8,7 @@ class Tune < ApplicationRecord
   validates :origin_id, :web_resource_uri, presence: true
   validates :web_resource_uri, uniqueness: true
 
-  delegate :title, :thumbnail, :europeana_record_id, to: :origin
+  delegate :title, :thumbnail, :europeana_record_id, :provider, to: :origin
 
   def uri
     web_resource_uri

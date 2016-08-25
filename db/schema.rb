@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823133334) do
+ActiveRecord::Schema.define(version: 20160825135651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,20 @@ ActiveRecord::Schema.define(version: 20160823133334) do
     t.datetime "updated_at",                 null: false
   end
 
+  create_table "plays", force: :cascade do |t|
+    t.string   "europeana_record_id"
+    t.string   "web_resource_uri"
+    t.string   "provider"
+    t.string   "station"
+    t.text     "title"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["europeana_record_id"], name: "index_plays_on_europeana_record_id", using: :btree
+    t.index ["provider"], name: "index_plays_on_provider", using: :btree
+    t.index ["station"], name: "index_plays_on_station", using: :btree
+    t.index ["web_resource_uri"], name: "index_plays_on_web_resource_uri", using: :btree
+  end
+
   create_table "stations", force: :cascade do |t|
     t.string   "name"
     t.text     "api_query"
@@ -45,9 +59,11 @@ ActiveRecord::Schema.define(version: 20160823133334) do
     t.integer  "order",       null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "uuid",        null: false
     t.index ["order"], name: "index_tracks_on_order", using: :btree
     t.index ["playlist_id"], name: "index_tracks_on_playlist_id", using: :btree
     t.index ["tune_id"], name: "index_tracks_on_tune_id", using: :btree
+    t.index ["uuid"], name: "index_tracks_on_uuid", unique: true, using: :btree
   end
 
   create_table "tunes", force: :cascade do |t|

@@ -51,4 +51,8 @@ class Origin < ApplicationRecord
   def edm_rights
     @edm_rights ||= metadata['aggregations'].first['edmRights']['def'].first
   end
+
+  def provider
+    @provider ||= metadata['aggregations'].first['edmProvider']['def'].first
+  end
 end

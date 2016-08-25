@@ -6,11 +6,12 @@ class Track < ApplicationRecord
   belongs_to :tune
 
   has_one :origin, through: :tune
+  has_one :station, through: :playlist
 
   delegate :metadata, :thumbnail, :uri, :title, :creator, :europeana_record_id,
-    :edm_rights, :edm_rights_label, to: :tune
+    :edm_rights, :edm_rights_label, :provider, to: :tune
 
-  validates :playlist_id, :tune_id, :order, presence: true
+  validates :playlist_id, :tune_id, :order, :uuid, presence: true
   validates :tune_id, uniqueness: { scope: :playlist_id }
   validates :order, uniqueness: { scope: :playlist_id }
 
@@ -22,5 +23,21 @@ class Track < ApplicationRecord
         track.order = nil
       end
     end
+
+    while track.uuid.nil?
+      track.uuid = SecureRandom.uuid
+      if Track.where(uuid: track.uuid).count > 0
+        track.uuid = nil
+      end
+    end
+  end
+
+  def to_param
+    uuid
+  end
+
+  def log_play
+    Play.create!(europeana_record_id: europeana_record_id, web_resource_uri: uri,
+                 provider: provider, title: title, station: station.name)
   end
 end
