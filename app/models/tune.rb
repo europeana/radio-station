@@ -19,6 +19,10 @@ class Tune < ApplicationRecord
     end
   end
 
+  def to_param
+    uuid
+  end
+
   def uri
     web_resource_uri
   end

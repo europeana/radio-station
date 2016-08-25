@@ -4,7 +4,7 @@ json.station do
   json.totalResults @station.playlist_length
   json.playlist @tracks do |track|
     if track.is_a?(Track)
-      json.audio track.uri
+      json.audio play_tune_url(track.tune)
       json.title track.title
       json.creator track.creator
       json.thumbnail track.thumbnail

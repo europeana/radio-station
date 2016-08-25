@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   root to: redirect('stations.json')
 
   resources :stations, only: %w(index show)
+
+  resources :tunes, only: [] do
+    get :play, on: :member
+  end
 end
