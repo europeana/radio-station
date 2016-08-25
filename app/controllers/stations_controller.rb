@@ -8,7 +8,7 @@ class StationsController < ApplicationController
 
   def show
     @station = Station.find_by_slug!(params[:id])
-    @tracks = tracks_with_jingles
+    @tracks = tracks
   end
 
   protected
@@ -18,6 +18,7 @@ class StationsController < ApplicationController
     @station.playlist.tracks.limit(limit).offset(offset)
   end
 
+  # @fixme Doesn't work well with pagination
   def tracks_with_jingles
     tracks.to_a.tap do |jingly|
       jingly.each_with_index do |_track, i|
