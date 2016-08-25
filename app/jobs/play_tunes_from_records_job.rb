@@ -53,7 +53,7 @@ class PlayTunesFromRecordsJob < ApplicationJob
 
     web_resources.flatten.select do |wr|
       (wr['ebucoreHasMimeType'] || '').starts_with?('audio/') &&
-        (wr['ebucoreDuration'] || 0).to_i >= 180
+        (wr['ebucoreDuration'] || 0).to_i >= 180000
     end
   end
 
