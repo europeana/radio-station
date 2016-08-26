@@ -20,12 +20,14 @@ class PlayTunesFromRecordsJob < ApplicationJob
       # Create or update `Origin` record
       origin = Origin.find_or_create_by(europeana_record_id: europeana_record_id)
       origin.metadata = record
-      origin.save!
     end
 
     # Extract pertinent web resources from API response & return if there are none
     record_tunes = extract_tunes(record)
     return if record_tunes.blank?
+
+    # Save `Origin` if it's new, and we know there are pertinent web resources
+    origin.save! if origin.new_record?
 
     # Create `Tune` and `Track` records
     record_tunes.each do |record_tune|
