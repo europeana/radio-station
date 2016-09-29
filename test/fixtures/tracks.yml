@@ -4,8 +4,10 @@ one:
   playlist: classical_live
   tune: 1
   order: 10
+  uuid: 3eee5257-0975-4d96-ace0-edb7171fa22e
 
 two:
   playlist: classical_live
   tune: 2
   order: 5
+  uuid: a7e51cce-40f3-4af0-9556-d3ad046e7d86

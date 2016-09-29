@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A tune is one audio recording that can be played on the radio
 class Tune < ApplicationRecord
@@ -15,7 +16,7 @@ class Tune < ApplicationRecord
   end
 
   def metadata
-    @metadata ||= origin.web_resources.find { |wr| wr['about'] == web_resource_uri }
+    @metadata ||= origin.web_resources.detect { |wr| wr['about'] == web_resource_uri }
   end
 
   def creator

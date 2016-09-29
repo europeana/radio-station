@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AssociatePlaysWithTracks < ActiveRecord::Migration[5.0]
   def change
     reversible do |dir|

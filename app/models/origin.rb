@@ -40,7 +40,7 @@ class Origin < ApplicationRecord
   end
 
   def proxy(europeana:)
-    metadata['proxies'].find { |proxy| proxy['europeanaProxy'] == europeana }
+    metadata['proxies'].detect { |proxy| proxy['europeanaProxy'] == europeana }
   end
 
   def creator

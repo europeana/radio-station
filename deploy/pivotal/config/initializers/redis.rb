@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 if ENV.key?('VCAP_SERVICES')
   services = JSON.parse(ENV['VCAP_SERVICES'])
   redis_config = services['rediscloud'].first
