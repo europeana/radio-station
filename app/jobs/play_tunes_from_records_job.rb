@@ -65,7 +65,7 @@ class PlayTunesFromRecordsJob < ApplicationJob
   end
 
   def url(europeana_record_id)
-    uri = URI.parse("#{API_BASE_URL}/record#{europeana_record_id}.json")
+    uri = URI.parse("#{api_url}/record#{europeana_record_id}.json")
     uri.query = "wskey=#{api_key}"
     Rails.logger.debug("Tune Record URL: #{uri}")
     uri.to_s

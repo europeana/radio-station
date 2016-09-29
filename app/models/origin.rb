@@ -26,7 +26,7 @@ class Origin < ApplicationRecord
       if edm_object.nil?
         nil
       else
-        'http://www.europeana.eu/api/v2/thumbnail-by-url.json?type=SOUND&uri=' + CGI.escape(edm_object)
+        "#{Rails.application.config.x.europeana_api_url}/thumbnail-by-url.json?type=SOUND&uri=" + CGI.escape(edm_object)
       end
     end
   end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class ApplicationJob < ActiveJob::Base
-  API_BASE_URL = 'https://www.europeana.eu/api/v2'
+  def api_url
+    Rails.application.config.x.europeana_api_url
+  end
 
   def api_key
     Rails.application.secrets.europeana_api_key
