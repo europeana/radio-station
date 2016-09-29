@@ -38,6 +38,6 @@ class Track < ApplicationRecord
   end
 
   def log_play
-    Play.create!(track_id: id)
+    Play.create!(track: self)
   end
 end
