@@ -17,7 +17,7 @@ json.station do
       json.duration track.metadata['ebucoreDuration']
       json.sampleRate track.metadata['ebucoreSampleRate']
       json.bitRate track.metadata['ebucoreBitRate']
-      json.jingle false
+      # json.jingle false
     else
       json.audio track['uri']
       json.jingle true
