@@ -12,11 +12,11 @@ class Station < ApplicationRecord
   end
 
   def playlist
-    playlists.where(live: true).order('created_at DESC').first
+    @playlist ||= playlists.where(live: true).order('created_at DESC').first
   end
 
   def playlist_length
-    (playlist.present? && playlist.tracks.present?) ? playlist.tracks.count : 0
+    @playlist_length ||= (playlist.present? ? playlist.tracks.count : 0)
   end
 
   def plays

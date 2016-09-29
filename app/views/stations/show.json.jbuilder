@@ -3,7 +3,7 @@ json.station do
   json.name @station.name
   json.link station_url(@station, format: 'json')
   json.totalResults @station.playlist_length
-  json.totalPlays @station.plays
+  # json.totalPlays @station.plays
   json.playlist @tracks do |track|
     if track.is_a?(Track)
       json.audio play_track_url(track)
