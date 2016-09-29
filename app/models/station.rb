@@ -18,4 +18,8 @@ class Station < ApplicationRecord
   def playlist_length
     (playlist.present? && playlist.tracks.present?) ? playlist.tracks.count : 0
   end
+
+  def plays
+    Play.joins(:station).where('station_id = ?', self).count
+  end
 end
