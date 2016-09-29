@@ -41,6 +41,9 @@ module Europeana
           resource '*', headers: :any, methods: [:get, :head, :options]
         end
       end
+
+      # Set Europeana API URL
+      Rails.application.config.x.europeana_api_url = ENV['EUROPEANA_API_URL'] || 'https://www.europeana.eu/api/v2'
     end
   end
 end

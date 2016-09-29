@@ -32,7 +32,7 @@ class RefreshStationPlaylistJob < ApplicationJob
   end
 
   def url(station, cursor = '*')
-    uri = URI.parse(API_BASE_URL + '/search.json')
+    uri = URI.parse(api_url + '/search.json')
 
     query = {
       query: station.api_query,
