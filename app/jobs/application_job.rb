@@ -10,8 +10,8 @@ class ApplicationJob < ActiveJob::Base
     @connection ||= Faraday.new do |conn|
       conn.adapter Faraday.default_adapter
       conn.request :retry, max: 5, interval: 3,
-                                   exceptions: [Errno::ECONNREFUSED, Errno::ETIMEDOUT, 'Timeout::Error',
-                                                Faraday::Error::TimeoutError, EOFError]
+                           exceptions: [Errno::ECONNREFUSED, Errno::ETIMEDOUT, 'Timeout::Error',
+                                        Faraday::Error::TimeoutError, EOFError]
       conn.response :json, content_type: /\bjson$/
     end
   end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddUuidToTrack < ActiveRecord::Migration[5.0]
   def up
     add_column :tracks, :uuid, :string

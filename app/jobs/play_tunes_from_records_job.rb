@@ -55,7 +55,7 @@ class PlayTunesFromRecordsJob < ApplicationJob
 
     web_resources.flatten.select do |wr|
       (wr['ebucoreHasMimeType'] || '').starts_with?('audio/') &&
-        (wr['ebucoreDuration'] || 0).to_i >= 180000
+        (wr['ebucoreDuration'] || 0).to_i >= 180_000
     end
   end
 
@@ -67,7 +67,7 @@ class PlayTunesFromRecordsJob < ApplicationJob
   def url(europeana_record_id)
     uri = URI.parse("#{API_BASE_URL}/record#{europeana_record_id}.json")
     uri.query = "wskey=#{api_key}"
-    Rails.logger.debug("Tune Record URL: #{uri.to_s}")
+    Rails.logger.debug("Tune Record URL: #{uri}")
     uri.to_s
   end
 end

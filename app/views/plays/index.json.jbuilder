@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 json.plays @recent do |play|
   json.station play.track.station.name
   json.audio play.track.uri

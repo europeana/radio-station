@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class MakePlaylistLiveJob < ApplicationJob
   queue_as :playlist_live
 

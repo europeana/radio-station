@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 json.station do
   json.name @station.name
   json.link station_url(@station, format: 'json')

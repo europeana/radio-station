@@ -28,8 +28,6 @@ class RefreshStationPlaylistJob < ApplicationJob
 
     if origin.present? && track['timestamp'].present? && ((origin.updated_at.to_i * 1000) >= track['timestamp'])
       origin.id
-    else
-      nil
     end
   end
 
@@ -52,7 +50,7 @@ class RefreshStationPlaylistJob < ApplicationJob
 
     uri.query = Rack::Utils.build_query(query)
 
-    Rails.logger.debug("Station Search URL: #{uri.to_s}")
+    Rails.logger.debug("Station Search URL: #{uri}")
     uri.to_s
   end
 end
