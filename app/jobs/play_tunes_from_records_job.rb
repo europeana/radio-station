@@ -38,14 +38,18 @@ class PlayTunesFromRecordsJob < ApplicationJob
       # Create `Track` record
       Track.create(playlist_id: playlist_id, tune_id: tune.id)
     end
+  end
+
+  after_perform do |job|
+    playlist_id = job.arguments[1]
 
     # Make playlist live if this is the last tune
-    unless queue_has_more_jobs?(playlist_id)
+    unless playlist_has_more_jobs_queued?(playlist_id)
       MakePlaylistLiveJob.perform_later(playlist_id)
     end
   end
 
-  def queue_has_more_jobs?(playlist_id)
+  def self.playlist_has_more_jobs_queued?(playlist_id)
     Sidekiq::Queue.new(:api_record).any? { |job| job.args.first['arguments'][1] == playlist_id } ||
       Sidekiq::Queue.new(:api_search).any? { |job| job.args.first['arguments'][2] == playlist_id }
   end
