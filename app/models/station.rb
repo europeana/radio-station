@@ -3,6 +3,7 @@
 # A station is one channel on the radio, with its own playlist
 class Station < ApplicationRecord
   has_many :playlists, dependent: :destroy
+  has_one :playlist, -> { where(live: true).order('created_at DESC') }
 
   validates :name, :api_query, :slug, presence: true
   validates :name, :slug, uniqueness: true
@@ -11,12 +12,8 @@ class Station < ApplicationRecord
     slug
   end
 
-  def playlist
-    playlists.where(live: true).order('created_at DESC').first
-  end
-
   def playlist_length
-    (playlist.present? && playlist.tracks.present?) ? playlist.tracks.count : 0
+    @playlist_length ||= (playlist.present? ? playlist.tracks.count : 0)
   end
 
   def plays

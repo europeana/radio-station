@@ -7,7 +7,7 @@ class StationsController < ApplicationController
   end
 
   def show
-    @station = Station.find_by_slug!(params[:id])
+    @station = Station.includes(:playlist).find_by_slug!(params[:id])
     @tracks = tracks
   end
 
@@ -15,7 +15,7 @@ class StationsController < ApplicationController
 
   def tracks
     return [] if @station.playlist.nil?
-    @station.playlist.tracks.limit(limit).offset(offset)
+    @station.playlist.tracks.includes(:tune, :origin).limit(limit).offset(offset)
   end
 
   # @fixme Doesn't work well with pagination
