@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
 gem 'clockwork', '~> 2.0'
+gem 'europeana-logging', '~> 0.0.2'
 gem 'faraday', '~> 0.9'
 gem 'faraday_middleware', '~> 0.10'
 gem 'jbuilder', '~> 2.6'
