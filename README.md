@@ -1,5 +1,7 @@
 # Europeana Radio Station
 
+[![Build Status](https://travis-ci.org/europeana/radio-station.svg?branch=develop)](https://travis-ci.org/europeana/radio-station) [![Coverage Status](https://coveralls.io/repos/github/europeana/radio-station/badge.svg?branch=develop)](https://coveralls.io/github/europeana/radio-station?branch=develop) [![security](https://hakiri.io/github/europeana/radio-station/develop.svg)](https://hakiri.io/github/europeana/radio-station/develop) [![Dependency Status](https://gemnasium.com/europeana/radio-station.svg)](https://gemnasium.com/europeana/radio-station)
+
 Broadcasting playlists of tunes from the Europeana collections.
 
 For a player ready to work with these playlists, see the
