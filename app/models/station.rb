@@ -8,6 +8,8 @@ class Station < ApplicationRecord
   validates :name, :api_query, :slug, presence: true
   validates :name, :slug, uniqueness: true
 
+  enum theme_type: [:genre, :institution]
+
   def to_param
     slug
   end

@@ -8,4 +8,5 @@ class StationTest < ActiveSupport::TestCase
   should validate_presence_of(:slug)
   should validate_uniqueness_of(:slug)
   should have_many(:playlists).dependent(:destroy)
+  should define_enum_for(:theme_type).with([:genre, :institution])
 end
