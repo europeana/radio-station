@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   root to: redirect('stations.json')
 
-  resources :stations, only: %w(index show)
+  resources :stations, only: :index
+  Station.theme_types.keys.each do |theme_type|
+    get "stations/#{theme_type.pluralize}/:slug", to: 'stations#show',
+      defaults: { theme_type: theme_type }, as: "#{theme_type}_station"
+  end
 
   resources :tracks, only: [] do
     get :play, on: :member

@@ -7,7 +7,7 @@ class StationsController < ApplicationController
   end
 
   def show
-    @station = Station.includes(:playlist).find_by_slug!(params[:id])
+    @station = Station.includes(:playlist).find_by_theme_type_and_slug!(params[:theme_type], params[:slug])
     @tracks = tracks
   end
 

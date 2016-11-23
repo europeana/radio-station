@@ -21,9 +21,4 @@ class StationTest < ActiveSupport::TestCase
     station.valid?
     assert_equal('francais-and-espanol', station.slug)
   end
-
-  test 'should use theme type and slug for param' do
-    station = Station.new(slug: 'folk', theme_type: :genre)
-    assert_equal('genres/folk', station.to_param)
-  end
 end

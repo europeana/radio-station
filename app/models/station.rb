@@ -15,10 +15,6 @@ class Station < ApplicationRecord
 
   enum theme_type: [:genre, :institution]
 
-  def to_param
-    "#{theme_type.pluralize}/#{slug}"
-  end
-
   def playlist_length
     @playlist_length ||= (playlist.present? ? playlist.tracks.count : 0)
   end
