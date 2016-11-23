@@ -22,3 +22,6 @@
 
 # Ignore Redis snapshots
 *.rdb
+
+# Ignore coverage reports
+/coverage
