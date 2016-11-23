@@ -176,6 +176,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stringex (2.6.1)
     term-ansicolor (1.4.0)
       tins (~> 1.0)
     thor (0.19.1)
@@ -213,6 +214,7 @@ DEPENDENCIES
   sidekiq
   spring
   spring-watcher-listen (~> 2.0.0)
+  stringex (~> 2.6)
 
 BUNDLED WITH
    1.13.1

@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 2.6'
 gem 'pg', '~> 0.18'
 gem 'rack-cors'
 gem 'sidekiq'
+gem 'stringex', '~> 2.6'
 
 group :production, :development do
   gem 'newrelic_rpm', '~> 3.16'
