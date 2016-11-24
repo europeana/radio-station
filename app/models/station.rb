@@ -11,7 +11,7 @@ class Station < ApplicationRecord
   # NB: we are not really allowing duplicates, but rather want the uniqueness
   # validation above to fail, preventing record creation.
   acts_as_url :name, url_attribute: :slug, only_when_blank: true,
-    allow_duplicates: true
+                     allow_duplicates: true
 
   enum theme_type: [:genre, :institution]
 

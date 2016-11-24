@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Europeana::API returns `OpenStruct` instances, but serializing these to JSON
 # adds other internal attributes not wanted.
 #

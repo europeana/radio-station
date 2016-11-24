@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'test_helper'
 
 class RefreshInstitutionsJobTest < ActiveJob::TestCase
   def setup
     stub_request(:get, 'https://www.europeana.eu/api/v2/search.json').
-      with(query: hash_including({ query: '*:*', facet: 'DATA_PROVIDER' })).
+      with(query: hash_including(query: '*:*', facet: 'DATA_PROVIDER')).
       to_return(body: '{"success": true, "facets": [{"name": "DATA_PROVIDER", "fields": [{"label": "Internet Archive", "count": 3344}, {"label": "LMTA (DIZI)", "count": 1160}]}]}', headers: { 'Content-Type' => 'application/json' })
   end
 
