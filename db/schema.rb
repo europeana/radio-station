@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825144846) do
+ActiveRecord::Schema.define(version: 20161123134521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,10 +40,12 @@ ActiveRecord::Schema.define(version: 20160825144846) do
   create_table "stations", force: :cascade do |t|
     t.string   "name"
     t.text     "api_query"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.text     "slug"
+    t.integer  "theme_type", default: 0
     t.index ["slug"], name: "index_stations_on_slug", unique: true, using: :btree
+    t.index ["theme_type"], name: "index_stations_on_theme_type", using: :btree
   end
 
   create_table "tracks", force: :cascade do |t|

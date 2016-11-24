@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 json.station do
   json.name @station.name
-  json.link station_url(@station, format: 'json')
+  json.link send(:"#{@station.theme_type}_station_url", slug: @station.slug, format: 'json')
   json.totalResults @station.playlist_length
   # json.totalPlays @station.plays
   json.playlist @tracks do |track|
@@ -17,10 +17,6 @@ json.station do
       json.duration track.metadata['ebucoreDuration']
       json.sampleRate track.metadata['ebucoreSampleRate']
       json.bitRate track.metadata['ebucoreBitRate']
-      # json.jingle false
-    else
-      json.audio track['uri']
-      json.jingle true
     end
   end
 end

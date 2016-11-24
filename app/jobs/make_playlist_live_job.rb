@@ -4,6 +4,13 @@ class MakePlaylistLiveJob < ApplicationJob
 
   def perform(playlist_id)
     playlist = Playlist.find(playlist_id)
+
+    # Empty playlists are not useful. Just delete them.
+    if playlist.tracks.count.zero?
+      playlist.destroy
+      return
+    end
+
     playlist.live = true
     playlist.save!
 
