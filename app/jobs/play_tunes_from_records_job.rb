@@ -24,11 +24,11 @@ class PlayTunesFromRecordsJob < ApplicationJob
       record = origin.metadata
     else
       # Get record from API
-      record = fetch(europeana_record_id)
+      record = fetch(europeana_record_id).to_h
 
       # Create or update `Origin` record
       origin = Origin.find_or_create_by(europeana_record_id: europeana_record_id)
-      origin.metadata = record.to_h
+      origin.metadata = record
     end
 
     # Extract pertinent web resources from API response & return if there are none
@@ -55,22 +55,22 @@ class PlayTunesFromRecordsJob < ApplicationJob
   end
 
   def extract_tunes(record)
-    web_resources(record).flatten.select do |web_resource|
+    web_resources(record).select do |web_resource|
       web_resource_has_audio_mime_type?(web_resource) &&
         web_resource_has_minimum_duration?(web_resource)
     end
   end
 
   def web_resource_has_audio_mime_type?(web_resource)
-    (web_resource.ebucoreHasMimeType || '').starts_with?('audio/')
+    (web_resource['ebucoreHasMimeType'] || '').starts_with?('audio/')
   end
 
   def web_resource_has_minimum_duration?(web_resource)
-    (web_resource.ebucoreDuration || 0).to_i >= 180_000
+    (web_resource['ebucoreDuration'] || 0).to_i >= 180_000
   end
 
   def web_resources(record)
-    record.aggregations.map(&:webResources).flatten
+    record['aggregations'].map { |a| a['webResources'] }.flatten.compact
   end
 
   def fetch(europeana_record_id)
