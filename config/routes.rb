@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   resources :stations, only: :index
   Station.theme_types.keys.each do |theme_type|
+    get "stations/#{theme_type.pluralize}", to: 'stations#index',
+      defaults: { theme_type: theme_type }, as: "#{theme_type}_stations"
     get "stations/#{theme_type.pluralize}/:slug", to: 'stations#show',
       defaults: { theme_type: theme_type }, as: "#{theme_type}_station"
   end

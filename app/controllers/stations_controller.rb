@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 class StationsController < ApplicationController
   def index
-    @stations = Station.includes(:playlist).select do |station|
+    conditions = params.key?(:theme_type) ? { theme_type: params[:theme_type] } : nil
+    @stations = Station.where(conditions).includes(:playlist).select do |station|
       station.playlist.present?
     end
   end
