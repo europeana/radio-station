@@ -5,6 +5,8 @@ class Tune < ApplicationRecord
   include EDM::Rights
 
   belongs_to :origin
+  has_many :tracks
+  has_many :playlists, through: :tracks
 
   validates :origin_id, :web_resource_uri, presence: true
   validates :web_resource_uri, uniqueness: true

@@ -16,7 +16,19 @@ class StationsController < ApplicationController
 
   def tracks
     return [] if @station.playlist.nil?
-    @station.playlist.tracks.includes(:tune, :origin).limit(limit).offset(offset)
+
+    station_tracks = @station.playlist.tracks.includes(:tune, :origin)
+
+    # Filter by another station's playlist, e.g. for all of one institution's
+    # tracks of a particular genre
+    %i(genre institution).each do |theme_type|
+      next unless params[theme_type]
+      other_station = Station.find_by_theme_type_and_slug!(theme_type, params[theme_type])
+      return [] unless other_station.playlist.present?
+      station_tracks = station_tracks.where('tune_id IN (SELECT tunes.id FROM tunes INNER JOIN tracks ON tunes.id=tracks.tune_id WHERE tracks.playlist_id=?)', other_station.playlist.id)
+    end
+
+    station_tracks.limit(limit).offset(offset)
   end
 
   def limit

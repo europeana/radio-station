@@ -9,3 +9,12 @@ notifications:
 sudo: false
 cache:
   bundler: true
+bundler_args: --without development:production
+before_script:
+  - "psql -c 'create database europeana_radio_station_test;' -U postgres"
+  - "cp -r ./deploy/travis/. ."
+  - "bundle exec rake db:test:prepare"
+env:
+  - RAILS_ENV=test
+addons:
+  postgresql: "9.4"
