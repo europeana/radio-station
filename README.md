@@ -34,7 +34,7 @@ to configure your installation:
 * `SCHEDULE_PLAYLIST_REFRESH`: the time each day to refresh station playlists,
   e.g. `SCHEDULE_PLAYLIST_REFRESH="03:15"`
 * `SCHEDULE_INSTITUTION_REFRESH`: the time each day to refresh the set of
-  institutions, e.g. `SCHEDULE_INSTITUTION_REFRESH=02:45`
+  institutions, e.g. `SCHEDULE_INSTITUTION_REFRESH="02:45"`
 
 In a development environment, you can take advantage of dotenv to set
 environment variables in the file named ".env".
