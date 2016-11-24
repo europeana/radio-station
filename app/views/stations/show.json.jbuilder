@@ -2,7 +2,7 @@
 json.station do
   json.name @station.name
   json.link send(:"#{@station.theme_type}_station_url", slug: @station.slug, format: 'json')
-  json.totalResults @station.playlist_length
+  json.totalResults @total_tracks
   # json.totalPlays @station.plays
   json.playlist @tracks do |track|
     if track.is_a?(Track)

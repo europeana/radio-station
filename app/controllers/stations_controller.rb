@@ -9,26 +9,37 @@ class StationsController < ApplicationController
 
   def show
     @station = Station.includes(:playlist).find_by_theme_type_and_slug!(params[:theme_type], params[:slug])
-    @tracks = tracks
+    @tracks = paginated_station_tracks
+    @total_tracks = total_track_count
   end
 
   protected
 
-  def tracks
-    return [] if @station.playlist.nil?
+  def paginated_station_tracks
+    station_tracks.nil? ? [] : station_tracks.limit(limit).offset(offset)
+  end
 
-    station_tracks = @station.playlist.tracks.includes(:tune, :origin)
+  def total_track_count
+    station_tracks.nil? ? 0 : station_tracks.count
+  end
 
-    # Filter by another station's playlist, e.g. for all of one institution's
-    # tracks of a particular genre
-    %i(genre institution).each do |theme_type|
-      next unless params[theme_type]
-      other_station = Station.find_by_theme_type_and_slug!(theme_type, params[theme_type])
-      return [] unless other_station.playlist.present?
-      station_tracks = station_tracks.where('tune_id IN (SELECT tunes.id FROM tunes INNER JOIN tracks ON tunes.id=tracks.tune_id WHERE tracks.playlist_id=?)', other_station.playlist.id)
+  def station_tracks
+    @station_tracks ||= begin
+      return nil if @station.playlist.nil?
+
+      station_tracks = @station.playlist.tracks.includes(:tune, :origin)
+
+      # Filter by another station's playlist, e.g. for all of one institution's
+      # tracks of a particular genre
+      %i(genre institution).each do |theme_type|
+        next unless params[theme_type]
+        other_station = Station.find_by_theme_type_and_slug!(theme_type, params[theme_type])
+        return nil unless other_station.playlist.present?
+        station_tracks = station_tracks.where('tune_id IN (SELECT tunes.id FROM tunes INNER JOIN tracks ON tunes.id=tracks.tune_id WHERE tracks.playlist_id=?)', other_station.playlist.id)
+      end
+
+      station_tracks
     end
-
-    station_tracks.limit(limit).offset(offset)
   end
 
   def limit
