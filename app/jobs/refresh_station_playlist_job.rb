@@ -10,47 +10,38 @@ class RefreshStationPlaylistJob < ApplicationJob
     station = Station.find(station_id)
     playlist = Playlist.find_by_id(playlist_id) || Playlist.create!(station_id: station_id)
 
-    response = api_connection.get(url(station, cursor))
+    api_response(station, cursor).tap do |response|
+      unless response.nextCursor.nil?
+        self.class.perform_later(station_id, response.nextCursor, playlist.id)
+      end
 
-    unless response.body['nextCursor'].nil?
-      self.class.perform_later(station_id, response.body['nextCursor'], playlist.id)
-    end
-
-    response.body.fetch('items', []).each do |track|
-      PlayTunesFromRecordsJob.perform_later(track['id'], playlist.id, track_origin_id(track))
+      (response.items || []).each do |track|
+        PlayTunesFromRecordsJob.perform_later(track.id, playlist.id, track_origin_id(track))
+      end
     end
   end
 
   protected
 
-  def track_origin_id(track)
-    origin = Origin.find_by_europeana_record_id(track['id'])
+  def api_response(station, cursor = '*')
+    Europeana::API.record.search(api_search_params(station, cursor))
+  end
 
-    if origin.present? && track['timestamp'].present? && ((origin.updated_at.to_i * 1000) >= track['timestamp'])
+  def track_origin_id(track)
+    origin = Origin.find_by_europeana_record_id(track.id)
+
+    if origin.present? && track.timestamp.present? && ((origin.updated_at.to_i * 1000) >= track.timestamp)
       origin.id
     end
   end
 
-  def url(station, cursor = '*')
-    uri = URI.parse(api_url + '/search.json')
-
-    query = {
+  def api_search_params(station, cursor = '*')
+    {
       query: station.api_query,
       rows: 100,
       profile: 'minimal',
-      qf: [
-        'MEDIA:true',
-        'SOUND_DURATION:medium',
-        'SOUND_DURATION:long',
-        'TYPE:SOUND'
-      ],
-      wskey: api_key,
+      qf: api_playable_audio_qf_params,
       cursor: cursor
     }
-
-    uri.query = Rack::Utils.build_query(query)
-
-    Rails.logger.debug("Station Search URL: #{uri}")
-    uri.to_s
   end
 end
