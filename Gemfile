@@ -36,4 +36,5 @@ group :test do
   gem 'coveralls', require: false
   gem 'shoulda-context', '~> 1.2'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'webmock'
 end
