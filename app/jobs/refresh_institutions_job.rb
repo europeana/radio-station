@@ -19,7 +19,7 @@ class RefreshInstitutionsJob < ApplicationJob
 
   def create_attributes(institution)
     find_attributes(institution).merge(
-      api_query: %(provider_aggregation_edm_dataProvider:"#{institution}")
+      api_query: %(DATA_PROVIDER:"#{institution}")
     )
   end
 

@@ -29,7 +29,7 @@ unless Station.find_by_theme_type_and_slug(:genre, :popular)
   Station.create(
     name: 'Popular Music',
     slug: 'popular',
-    api_query: 'provider_aggregation_edm_dataProvider:"Internet Archive"',
+    api_query: 'DATA_PROVIDER:"Internet Archive"',
     theme_type: :genre
   )
 end
