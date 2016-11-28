@@ -24,7 +24,7 @@ class PlayTunesFromRecordsJob < ApplicationJob
       record = origin.metadata
     else
       # Get record from API
-      record = fetch(europeana_record_id).to_h
+      record = fetch(europeana_record_id)
 
       # Create or update `Origin` record
       origin = Origin.find_or_create_by(europeana_record_id: europeana_record_id)
@@ -74,6 +74,6 @@ class PlayTunesFromRecordsJob < ApplicationJob
   end
 
   def fetch(europeana_record_id)
-    Europeana::API.record.fetch(id: europeana_record_id).object
+    Europeana::API.record.fetch(id: europeana_record_id)['object']
   end
 end

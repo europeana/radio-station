@@ -4,7 +4,7 @@ class RefreshInstitutionsJob < ApplicationJob
 
   # @todo Handle stored institutions no longer in the response... how?
   def perform
-    api_response.facets.first.fields.map(&:label).each do |institution|
+    institutions.each do |institution|
       if Station.find_by(find_attributes(institution)).nil?
         Station.create!(create_attributes(institution))
       end
@@ -12,6 +12,10 @@ class RefreshInstitutionsJob < ApplicationJob
   end
 
   protected
+
+  def institutions
+    api_response['facets'].first['fields'].map { |ff| ff['label'] }
+  end
 
   def find_attributes(institution)
     { theme_type: :institution, name: institution }

@@ -11,12 +11,12 @@ class RefreshStationPlaylistJob < ApplicationJob
     playlist = Playlist.find_by_id(playlist_id) || Playlist.create!(station_id: station_id)
 
     api_response(station, cursor).tap do |response|
-      unless response.nextCursor.nil?
-        self.class.perform_later(station_id, response.nextCursor, playlist.id)
+      unless response['nextCursor'].nil?
+        self.class.perform_later(station_id, response['nextCursor'], playlist.id)
       end
 
-      (response.items || []).each do |track|
-        PlayTunesFromRecordsJob.perform_later(track.id, playlist.id, track_origin_id(track))
+      (response['items'] || []).each do |track|
+        PlayTunesFromRecordsJob.perform_later(track['id'], playlist.id, track_origin_id(track))
       end
     end
   end
@@ -28,9 +28,9 @@ class RefreshStationPlaylistJob < ApplicationJob
   end
 
   def track_origin_id(track)
-    origin = Origin.find_by_europeana_record_id(track.id)
+    origin = Origin.find_by_europeana_record_id(track['id'])
 
-    if origin.present? && track.timestamp.present? && ((origin.updated_at.to_i * 1000) >= track.timestamp)
+    if origin.present? && track['timestamp'].present? && ((origin.updated_at.to_i * 1000) >= track['timestamp'])
       origin.id
     end
   end
