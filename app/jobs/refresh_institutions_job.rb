@@ -29,7 +29,7 @@ class RefreshInstitutionsJob < ApplicationJob
 
   def api_search_params
     {
-      query: '*:*',
+      query: 'PROVIDER:"Europeana Sounds"',
       rows: 0,
       profile: 'minimal,facets,params',
       facet: 'DATA_PROVIDER',
