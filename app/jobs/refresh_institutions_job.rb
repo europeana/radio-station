@@ -19,7 +19,7 @@ class RefreshInstitutionsJob < ApplicationJob
 
   def create_attributes(institution)
     find_attributes(institution).merge(
-      api_query: %(provider_aggregation_edm_dataProvider:"#{institution}")
+      api_query: %(DATA_PROVIDER:"#{institution}")
     )
   end
 
@@ -29,7 +29,7 @@ class RefreshInstitutionsJob < ApplicationJob
 
   def api_search_params
     {
-      query: '*:*',
+      query: 'PROVIDER:"Europeana Sounds"',
       rows: 0,
       profile: 'minimal,facets,params',
       facet: 'DATA_PROVIDER',
