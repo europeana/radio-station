@@ -12,6 +12,9 @@ Rails.application.routes.draw do
         to: 'stations#show', defaults: { theme_type: theme_type }, as: "#{theme_type}_station"
   end
 
+  get '/stations/classical(.:format)', to: redirect('/stations/genres/classical.%{format}')
+  get '/stations/folk(.:format)', to: redirect('/stations/genres/folk.%{format}')
+
   resources :tracks, only: [] do
     get :play, on: :member
   end
