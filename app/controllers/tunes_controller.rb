@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class TunesController < ApplicationController
   def play
     tune = Tune.find_by_uuid!(params[:id])
