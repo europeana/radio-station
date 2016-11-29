@@ -33,7 +33,7 @@ class RefreshInstitutionsJob < ApplicationJob
 
   def api_search_params
     {
-      query: 'PROVIDER:"Europeana Sounds"',
+      query: 'DATA_PROVIDER:("National Library of Latvia" OR "Sächsische Landesbibliothek - Staats- und Universitätsbibliothek Dresden" OR "LMTA (DIZI)" OR "Comhaltas Traditional Music Archive" OR "Irish Traditional Music Archive" OR "Tobar an Dualchais/Kist o Riches" OR "Cluj County Centre for the Preservation and Promotion of Traditional Culture" OR "Bibliothèque Medem - Maison de la Culture Yiddish" OR "Music Library of Greece of The Friends of Music Society" OR "Statsbiblioteket" OR "Internet Archive")',
       rows: 0,
       profile: 'minimal,facets,params',
       facet: 'DATA_PROVIDER',
