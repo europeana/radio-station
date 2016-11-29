@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 json.plays @recent do |play|
-  json.station play.track.station.name
-  json.audio play.track.uri
-  json.title play.track.title
-  json.europeanaId play.track.europeana_record_id
-  json.provider play.track.provider
+  json.station play.station.nil? ? nil : play.station.name
+  json.audio play.tune.uri
+  json.title play.tune.title
+  json.europeanaId play.tune.europeana_record_id
+  json.provider play.tune.provider
   json.playedAt play.created_at
 end
