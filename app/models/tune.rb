@@ -17,7 +17,7 @@ class Tune < ApplicationRecord
   before_validation do |tune|
     while tune.uuid.nil?
       tune.uuid = SecureRandom.uuid
-      if Tune.where(uuid: tune.uuid).count > 0
+      if Tune.where(uuid: tune.uuid).count.positive?
         tune.uuid = nil
       end
     end

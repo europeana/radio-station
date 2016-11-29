@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 class AddUuidToTune < ActiveRecord::Migration[5.0]
   def up
     add_column :tunes, :uuid, :string
     add_index :tunes, :uuid, unique: true
 
     Tune.where(uuid: nil).find_each do |tune|
-      while tune.uuid.nil? || Tune.where(uuid: tune.uuid).count > 0
+      while tune.uuid.nil? || Tune.where(uuid: tune.uuid).count.positive?
         tune.uuid = SecureRandom.uuid
       end
       tune.save!
