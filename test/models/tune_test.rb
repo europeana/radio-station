@@ -6,4 +6,5 @@ class TuneTest < ActiveSupport::TestCase
   should validate_uniqueness_of(:web_resource_uri)
   should validate_presence_of(:origin_id)
   should belong_to(:origin)
+  should have_many(:plays).dependent(:nullify)
 end

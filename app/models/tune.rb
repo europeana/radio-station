@@ -7,11 +7,21 @@ class Tune < ApplicationRecord
   belongs_to :origin
   has_many :tracks
   has_many :playlists, through: :tracks
+  has_many :plays, dependent: :nullify
 
-  validates :origin_id, :web_resource_uri, presence: true
+  validates :origin_id, :web_resource_uri, :uuid, presence: true
   validates :web_resource_uri, uniqueness: true
 
   delegate :title, :thumbnail, :europeana_record_id, :provider, to: :origin
+
+  before_validation do |tune|
+    while tune.uuid.nil?
+      tune.uuid = SecureRandom.uuid
+      if Tune.where(uuid: tune.uuid).count > 0
+        tune.uuid = nil
+      end
+    end
+  end
 
   def uri
     web_resource_uri

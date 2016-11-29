@@ -3,7 +3,9 @@
 one:
   origin: one
   web_resource_uri: http://provider.example.com/abc/123
+  uuid: 3b9f4d49-7e56-4177-bf4f-045f52c4bcc9
 
 two:
   origin: two
   web_resource_uri: http://provider.example.com/abc/124
+  uuid: 2336b61e-14ba-46f8-bb9f-f23cc92faeb4

@@ -7,7 +7,6 @@ class Track < ApplicationRecord
 
   has_one :origin, through: :tune
   has_one :station, through: :playlist
-  has_many :plays
 
   delegate :metadata, :thumbnail, :uri, :title, :creator, :europeana_record_id,
            :edm_rights, :edm_rights_label, :provider, to: :tune
@@ -35,9 +34,5 @@ class Track < ApplicationRecord
 
   def to_param
     uuid
-  end
-
-  def log_play
-    Play.create!(track: self)
   end
 end
