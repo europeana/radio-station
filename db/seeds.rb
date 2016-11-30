@@ -26,4 +26,14 @@ unless Station.find_by_theme_type_and_slug(:genre, :popular)
     theme_type: :genre
   )
 end
+
+['National Library of Latvia', 'Sächsische Landesbibliothek - Staats- und Universitätsbibliothek Dresden', 'LMTA (DIZI)', 'Comhaltas Traditional Music Archive', 'Irish Traditional Music Archive', 'Tobar an Dualchais/Kist o Riches', 'Cluj County Centre for the Preservation and Promotion of Traditional Culture', 'Bibliothèque Medem - Maison de la Culture Yiddish', 'Music Library of Greece of The Friends of Music Society', 'Statsbiblioteket', 'Internet Archive'].each do |institution|
+  unless Station.find_by_theme_type_and_name(:institution, institution)
+    Station.create(
+      name: institution,
+      api_query: %(DATA_PROVIDER:"#{institution}"),
+      theme_type: :institution
+    )
+  end
+end
 # rubocop:enable Metrics/LineLength
