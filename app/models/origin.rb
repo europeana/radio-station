@@ -4,7 +4,7 @@
 class Origin < ApplicationRecord
   include EDM::Rights
 
-  has_many :tunes, dependent: :destroy
+  has_many :tunes, dependent: :nullify
 
   validates :europeana_record_id, uniqueness: true, presence: true
   validates :metadata, presence: true
@@ -29,7 +29,10 @@ class Origin < ApplicationRecord
         tune.id
       end
       lost_tune_ids = tune_ids_were - tune_ids_are
-      Tune.where(id: lost_tune_ids).update_all(origin_id: nil)
+      unless lost_tune_ids.blank?
+        Tune.where(id: lost_tune_ids).update_all(origin_id: nil)
+        Track.where(tune_id: lost_tune_ids).destroy_all
+      end
     end
   end
 

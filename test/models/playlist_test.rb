@@ -17,20 +17,22 @@ class PlaylistTest < ActiveSupport::TestCase
     end
   end
 
-  test 'it is invalid if station has no tunes' do
-    station = Station.create(theme_type: :genre, name: 'Black Metal', api_query: 'what:"black metal"')
-    assert(station.valid?)
-    playlist = Playlist.create(station: station)
-    assert_not(playlist.valid?)
-    assert(playlist.errors[:station].any?)
-  end
-
   test 'it can be made live' do
     station = stations(:classical)
     playlist = Playlist.create(station: station)
     playlist.live!
     assert(playlist.live)
     assert(Playlist.find(playlist.id).live)
+  end
+
+  test 'it can not be made live if station has no tunes' do
+    station = Station.create(theme_type: :genre, name: 'Black Metal', api_query: 'what:"black metal"')
+    assert(station.valid?)
+    playlist = Playlist.create(station: station)
+    assert(playlist.valid?)
+    assert_raises(StandardError) do
+      playlist.live!
+    end
   end
 
   test "destroys station's other live playlists once live" do

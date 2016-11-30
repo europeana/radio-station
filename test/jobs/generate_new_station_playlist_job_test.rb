@@ -29,6 +29,6 @@ class GenerateNewStationPlaylistJobTest < ActiveJob::TestCase
     3.times do
       GenerateNewStationPlaylistJob.perform_now(@station.id)
     end
-    assert_equal(1, @station.playlists.count)
+    assert_equal(1, @station.playlists.where(live: true).count)
   end
 end

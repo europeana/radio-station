@@ -7,8 +7,6 @@ class Playlist < ApplicationRecord
 
   validates :station_id, presence: true
 
-  validate :station_has_tunes
-
   before_create :generate
 
   def generate
@@ -16,13 +14,10 @@ class Playlist < ApplicationRecord
   end
 
   def live!
+    fail 'Playlist has no tracks' unless tracks.present?
     self.transaction do
       update_attributes(live: true)
       station.playlists.where(live: true).where.not(id: self.id).find_each(&:destroy)
     end
-  end
-
-  def station_has_tunes
-    errors.add(:station, 'has no tunes') unless station.blank? || station.tunes.count.nonzero?
   end
 end
