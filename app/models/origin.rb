@@ -22,8 +22,9 @@ class Origin < ApplicationRecord
   def extract_tunes_from_metadata
     self.transaction do
       tune_ids_were = tunes.map(&:id)
-      tune_ids_are = playable_web_resources.map do |wr|
-        tune = Tune.find_or_create_by(web_resource_uri: wr['about'], origin_id: id)
+      tune_ids_are = playable_web_resources.map do |web_resource|
+        tune = Tune.find_or_create_by(web_resource_uri: web_resource['about'], origin_id: id)
+        tune.metadata = web_resource
         tune.save!
         tune.id
       end

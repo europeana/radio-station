@@ -28,10 +28,6 @@ class Tune < ApplicationRecord
     web_resource_uri
   end
 
-  def metadata
-    @metadata ||= origin.web_resources.detect { |wr| wr['about'] == web_resource_uri }
-  end
-
   def creator
     Origin.creator(metadata) || origin.creator
   end
