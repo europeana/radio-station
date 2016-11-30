@@ -2,6 +2,7 @@
 :concurrency: 5
 :queues:
   - playlist_live
+  - playlist_generation
   - api_search
   - api_record
   - api_facets
