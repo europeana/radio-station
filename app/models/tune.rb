@@ -8,6 +8,7 @@ class Tune < ApplicationRecord
   has_many :tracks
   has_many :playlists, through: :tracks
   has_many :plays, dependent: :nullify
+  has_and_belongs_to_many :stations
 
   validates :origin_id, :web_resource_uri, :uuid, presence: true
   validates :web_resource_uri, uniqueness: true

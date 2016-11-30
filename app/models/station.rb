@@ -5,6 +5,7 @@ class Station < ApplicationRecord
   has_many :playlists, dependent: :destroy
   has_one :playlist, -> { where(live: true).order('created_at DESC') }
   has_many :plays, dependent: :nullify
+  has_and_belongs_to_many :tunes
 
   validates :name, :api_query, :slug, presence: true
   validates :name, :slug, uniqueness: { scope: :theme_type }

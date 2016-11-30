@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161129142335) do
+ActiveRecord::Schema.define(version: 20161130110024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,13 @@ ActiveRecord::Schema.define(version: 20161129142335) do
     t.integer  "theme_type", default: 0
     t.index ["slug"], name: "index_stations_on_slug", unique: true, using: :btree
     t.index ["theme_type"], name: "index_stations_on_theme_type", using: :btree
+  end
+
+  create_table "stations_tunes", id: false, force: :cascade do |t|
+    t.integer "station_id"
+    t.integer "tune_id"
+    t.index ["station_id"], name: "index_stations_tunes_on_station_id", using: :btree
+    t.index ["tune_id"], name: "index_stations_tunes_on_tune_id", using: :btree
   end
 
   create_table "tracks", force: :cascade do |t|

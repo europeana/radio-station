@@ -7,4 +7,5 @@ class TuneTest < ActiveSupport::TestCase
   should validate_presence_of(:origin_id)
   should belong_to(:origin)
   should have_many(:plays).dependent(:nullify)
+  should have_and_belong_to_many(:stations)
 end
