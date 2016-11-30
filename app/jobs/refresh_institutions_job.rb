@@ -4,7 +4,7 @@ class RefreshInstitutionsJob < ApplicationJob
 
   # @todo Handle stored institutions no longer in the response... how?
   def perform
-    fail "#{class} disabled while available institutions are hard-coded"
+    fail "#{self.class} disabled while available institutions are hard-coded"
     institutions.each do |institution|
       if Station.find_by(find_attributes(institution)).nil?
         Station.create!(create_attributes(institution))
