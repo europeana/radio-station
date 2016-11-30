@@ -9,6 +9,8 @@ class Origin < ApplicationRecord
   validates :europeana_record_id, uniqueness: true, presence: true
   validates :metadata, presence: true
 
+  after_save :extract_tunes_from_metadata
+
   def self.creator(edm)
     return nil unless edm['dcCreator']
     %w(en mul def).each do |key|
@@ -17,8 +19,36 @@ class Origin < ApplicationRecord
     edm['dcCreator'].values.first.first
   end
 
+  def extract_tunes_from_metadata
+    self.transaction do
+      tune_ids_were = tunes.map(&:id)
+      tune_ids_are = playable_web_resources.map do |wr|
+        tune = Tune.find_or_create_by(web_resource_uri: wr['about'], origin_id: id)
+        tune.save!
+        tune.id
+      end
+      lost_tune_ids = tune_ids_were - tune_ids_are
+      Tune.where(id: lost_tune_ids).update_all(origin_id: nil)
+    end
+  end
+
+  def playable_web_resources
+    web_resources.select do |web_resource|
+      web_resource_has_audio_mime_type?(web_resource) &&
+        web_resource_has_minimum_duration?(web_resource)
+    end
+  end
+
   def web_resources
-    metadata['aggregations'].map { |agg| agg['webResources'] }.flatten
+    metadata['aggregations'].map { |agg| agg['webResources'] }.flatten.compact
+  end
+
+  def web_resource_has_audio_mime_type?(web_resource)
+    (web_resource['ebucoreHasMimeType'] || '').starts_with?('audio/')
+  end
+
+  def web_resource_has_minimum_duration?(web_resource)
+    (web_resource['ebucoreDuration'] || 0).to_i >= 180_000
   end
 
   def thumbnail

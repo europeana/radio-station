@@ -11,7 +11,10 @@ class MakePlaylistLiveJob < ApplicationJob
       return
     end
 
-    playlist.live!
+    playlist.transaction do
+      playlist.live!
+      playlist.station.tunes = playlist.tunes
+    end
   rescue ActiveRecord::RecordNotFound
     # Playlist has gone away, so we can't make it live, but that's OK
   end

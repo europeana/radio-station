@@ -1,5 +1,12 @@
 # frozen_string_literal: true
-class RefreshStationPlaylistJob < ApplicationJob
+##
+# Updates the set of tunes associated with a station by:
+# - creating a temporary playlist for the station
+# - querying the Search API for all records on the station and adding the
+#   tunes as tracks to the playlist
+# - once complete, setting the station's tunes to be the set of tunes on the
+#   playlist, then randomising the playlist and making it live
+class RefreshStationTunesJob < ApplicationJob
   queue_as :api_search
 
   ##
@@ -16,7 +23,7 @@ class RefreshStationPlaylistJob < ApplicationJob
       end
 
       (response['items'] || []).each do |track|
-        PlayTunesFromRecordsJob.perform_later(track['id'], playlist.id, track_origin_id(track))
+        PlayTunesFromRecordsJob.perform_later(track['id'], playlist.id)
       end
     end
   end
@@ -25,14 +32,6 @@ class RefreshStationPlaylistJob < ApplicationJob
 
   def api_response(station, cursor = '*')
     Europeana::API.record.search(api_search_params(station, cursor))
-  end
-
-  def track_origin_id(track)
-    origin = Origin.find_by_europeana_record_id(track['id'])
-
-    if origin.present? && track['timestamp'].present? && ((origin.updated_at.to_i * 1000) >= track['timestamp'])
-      origin.id
-    end
   end
 
   def api_search_params(station, cursor = '*')
