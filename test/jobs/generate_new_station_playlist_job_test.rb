@@ -25,7 +25,7 @@ class GenerateNewStationPlaylistJobTest < ActiveJob::TestCase
     assert(playlist.live)
   end
 
-  test 'it destroys other station playlists' do
+  test 'it destroys other live station playlists' do
     3.times do
       GenerateNewStationPlaylistJob.perform_now(@station.id)
     end

@@ -33,13 +33,20 @@ class PlaylistTest < ActiveSupport::TestCase
     assert(Playlist.find(playlist.id).live)
   end
 
-  test "destroys station's other playlists once live" do
+  test "destroys station's other live playlists once live" do
     station = stations(:classical)
     3.times do
       playlist = Playlist.create(station: station)
       playlist.live!
     end
-    assert_equal(1, station.playlists.count)
+    assert_equal(1, station.playlists.where(live: true).count)
+  end
+
+  test "it leaves station's non-live playlists" do
+    station = stations(:classical)
+    playlist = Playlist.create(station: station)
+    playlist.live!
+    assert(station.playlists.include?(playlists(:classical_other)))
   end
 
   test 'it leaves playlists for other stations once live' do

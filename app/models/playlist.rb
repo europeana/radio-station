@@ -18,7 +18,7 @@ class Playlist < ApplicationRecord
   def live!
     self.transaction do
       update_attributes(live: true)
-      station.playlists.where.not(id: self.id).find_each(&:destroy)
+      station.playlists.where(live: true).where.not(id: self.id).find_each(&:destroy)
     end
   end
 
