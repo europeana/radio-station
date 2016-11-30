@@ -6,4 +6,23 @@ class Playlist < ApplicationRecord
   has_many :tracks, -> { order('order': :asc) }, dependent: :destroy
 
   validates :station_id, presence: true
+
+  validate :station_has_tunes
+
+  before_create :generate
+
+  def generate
+    self.tracks = station.tunes.map { |tune| Track.new(tune: tune, playlist: self) }
+  end
+
+  def live!
+    self.transaction do
+      update_attributes(live: true)
+      station.playlists.where.not(id: self.id).find_each(&:destroy)
+    end
+  end
+
+  def station_has_tunes
+    errors.add(:station, 'has no tunes') unless station.blank? || station.tunes.count.nonzero?
+  end
 end

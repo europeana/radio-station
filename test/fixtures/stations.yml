@@ -4,8 +4,10 @@ classical:
   name: Classical
   api_query: type:"classical music"
   slug: classical
+  tunes: adelaide_mp3, karmen_mp3
 
 folk:
   name: Folk
   api_query: type:"folk music"
   slug: folk
+  tunes: norroway_mp4

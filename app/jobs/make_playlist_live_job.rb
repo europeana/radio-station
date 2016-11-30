@@ -11,11 +11,7 @@ class MakePlaylistLiveJob < ApplicationJob
       return
     end
 
-    playlist.live = true
-    playlist.save!
-
-    other_station_playlists = Playlist.where(station_id: playlist.station_id).where.not(id: playlist_id)
-    other_station_playlists.find_each(&:destroy)
+    playlist.live!
   rescue ActiveRecord::RecordNotFound
     # Playlist has gone away, so we can't make it live, but that's OK
   end
