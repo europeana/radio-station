@@ -23,5 +23,5 @@ every(1.week, 'stations.tunes.refresh', at: ENV['SCHEDULE_TUNES_REFRESH']) do
 end
 
 every(1.week, 'origins.refresh', at: ENV['SCHEDULE_ORIGINS_REFRESH']) do
-  UpdateOrDeleteOrigins.perform_later
+  UpdateOrDeleteOriginsJob.perform_later
 end
