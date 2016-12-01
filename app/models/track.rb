@@ -11,7 +11,7 @@ class Track < ApplicationRecord
   delegate :metadata, :thumbnail, :uri, :title, :creator, :europeana_record_id,
            :edm_rights, :edm_rights_label, :provider, to: :tune
 
-  validates :playlist_id, :tune_id, :order, :uuid, presence: true
+  validates :playlist, :tune, :order, :uuid, presence: true
   validates :tune_id, uniqueness: { scope: :playlist_id }
   validates :order, uniqueness: { scope: :playlist_id }
 

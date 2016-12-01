@@ -9,6 +9,7 @@ class StationTest < ActiveSupport::TestCase
   should validate_uniqueness_of(:slug).scoped_to(:theme_type)
   should have_many(:playlists).dependent(:destroy)
   should have_many(:plays).dependent(:nullify)
+  should have_and_belong_to_many(:tunes)
   should define_enum_for(:theme_type).with([:genre, :institution])
 
   test 'should generate slug from name' do

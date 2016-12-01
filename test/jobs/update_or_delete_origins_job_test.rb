@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'test_helper'
 
-class PlayTunesFromRecordsJob < ActiveJob::TestCase
+class UpdateOrDeleteOriginsJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

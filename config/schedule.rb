@@ -12,6 +12,16 @@ include Clockwork
 
 every(1.day, 'stations.playlists.refresh', at: ENV['SCHEDULE_PLAYLIST_REFRESH']) do
   Station.find_each do |station|
-    RefreshStationPlaylistJob.perform_later(station.id)
+    GenerateNewStationPlaylistJob.perform_later(station.id)
   end
+end
+
+every(1.week, 'stations.tunes.refresh', at: ENV['SCHEDULE_TUNES_REFRESH']) do
+  Station.find_each do |station|
+    RefreshStationTunesJob.perform_later(station.id)
+  end
+end
+
+every(1.week, 'origins.refresh', at: ENV['SCHEDULE_ORIGINS_REFRESH']) do
+  UpdateOrDeleteOriginsJob.perform_later
 end
