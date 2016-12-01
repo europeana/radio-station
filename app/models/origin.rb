@@ -37,22 +37,28 @@ class Origin < ApplicationRecord
   end
 
   def playable_web_resources
-    web_resources.select do |web_resource|
-      web_resource_has_audio_mime_type?(web_resource) &&
-        web_resource_has_minimum_duration?(web_resource)
+    @playable_web_resources ||= begin
+      playable = web_resources.select { |web_resource| web_resource_has_audio_mime_type?(web_resource) }
+      if playable.present?
+        playable
+      else
+        web_resources.select { |wr| wr['about'] == edm_is_shown_by }
+      end
     end
   end
 
+  def edm_is_shown_by
+    metadata['aggregations'].first['edmIsShownBy']
+  end
+
   def web_resources
-    metadata['aggregations'].map { |agg| agg['webResources'] }.flatten.compact
+    @web_resources ||= begin
+      metadata['aggregations'].map { |agg| agg['webResources'] }.flatten.compact
+    end
   end
 
   def web_resource_has_audio_mime_type?(web_resource)
     (web_resource['ebucoreHasMimeType'] || '').starts_with?('audio/')
-  end
-
-  def web_resource_has_minimum_duration?(web_resource)
-    (web_resource['ebucoreDuration'] || 0).to_i >= 180_000
   end
 
   def thumbnail
