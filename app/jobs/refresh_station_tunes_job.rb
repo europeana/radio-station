@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require 'sidekiq/api'
-
 ##
 # Updates the set of tunes associated with a station by:
 # - creating a temporary playlist for the station
@@ -11,14 +9,22 @@ require 'sidekiq/api'
 class RefreshStationTunesJob < ApplicationJob
   queue_as :refresh_station_tunes
 
-  after_perform do |job|
-    # Make playlist live if this is the last tune
-    unless job.playlist_has_more_jobs_queued?(job.playlist_id)
-      MakePlaylistLiveJob.perform_later(job.playlist_id)
+  before_enqueue do |job|
+    playlist_id = job.arguments[2]
+    unless playlist_id.nil?
+      playlist = Playlist.find(playlist_id)
+      playlist.increment!(:jobs)
     end
   end
 
-  attr_reader :playlist_id
+  after_perform do |job|
+    playlist_id = job.arguments[2]
+    unless playlist_id.nil?
+      playlist = Playlist.find(playlist_id)
+      playlist.decrement!(:jobs)
+      MakePlaylistLiveJob.perform_later(playlist_id) if playlist.jobs.zero?
+    end
+  end
 
   ##
   # @param station_id [Fixnum] ID of `Station` to refresh tracks for
@@ -26,8 +32,14 @@ class RefreshStationTunesJob < ApplicationJob
   # @param playlist_id [Fixnum] ID of `Playlist` to write to
   def perform(station_id, cursor = '*', playlist_id = nil)
     station = Station.find(station_id)
-    playlist = Playlist.find_by_id(playlist_id) || Playlist.create!(station_id: station_id)
-    @playlist_id = playlist.id
+
+    if playlist_id.nil?
+      playlist = Playlist.create!(station_id: station_id)
+      self.class.perform_later(station_id, cursor, playlist.id)
+      return
+    end
+
+    playlist = Playlist.find_by_id(playlist_id)
 
     api_response(station, cursor).tap do |response|
       unless response['nextCursor'].nil?
@@ -36,21 +48,18 @@ class RefreshStationTunesJob < ApplicationJob
 
       (response['items'] || []).each do |item|
         origin = Origin.find_by_europeana_record_id(item['id'])
+        is_last_tune = 
 
         if origin.present?
           AddOriginTunesToPlaylistJob.perform_later(origin.id, playlist.id)
         else
-          HarvestOriginJob.perform_later(item['id'], playlist_id)
+          HarvestOriginJob.perform_later(item['id'], playlist.id)
         end
       end
     end
   end
 
   protected
-
-  def playlist_has_more_jobs_queued?(playlist_id)
-    Sidekiq::Queue.new(:refresh_station_tunes).any? { |job| job.args.first['arguments'][2] == playlist_id }
-  end
 
   def api_response(station, cursor = '*')
     Europeana::API.record.search(api_search_params(station, cursor))

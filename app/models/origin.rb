@@ -21,18 +21,26 @@ class Origin < ApplicationRecord
 
   def extract_tunes_from_metadata
     self.transaction do
-      tune_ids_were = tunes.map(&:id)
+      tune_ids_were = tune_ids
       tune_ids_are = playable_web_resources.map do |web_resource|
-        tune = Tune.find_or_create_by(web_resource_uri: web_resource['about'], origin_id: id)
-        tune.metadata = web_resource
-        tune.save!
-        tune.id
+        create_or_update_tune_from_web_resource(web_resource).id
       end
-      lost_tune_ids = tune_ids_were - tune_ids_are
-      unless lost_tune_ids.blank?
-        Tune.where(id: lost_tune_ids).update_all(origin_id: nil)
-        Track.where(tune_id: lost_tune_ids).destroy_all
-      end
+      handle_lost_tunes(tune_ids_were - tune_ids_are)
+    end
+  end
+
+  def handle_lost_tunes(ids)
+    return if ids.blank?
+    Tune.where(id: ids).update_all(origin_id: nil)
+    Track.where(tune_id: ids).destroy_all
+  end
+
+  def create_or_update_tune_from_web_resource(web_resource)
+    Tune.find_or_create_by(web_resource_uri: web_resource['about'], europeana_record_id: europeana_record_id).tap do |tune|
+      tune.origin_id = id if tune.origin_id.nil?
+      fail %(Tune exists for web resource "#{tune.web_resource_uri}" and origin "#{tune.origin.europeana_record_id}", but this origin is "#{europeana_record_id}") if tune.origin_id != id
+      tune.metadata = web_resource
+      tune.save!
     end
   end
 
@@ -63,10 +71,11 @@ class Origin < ApplicationRecord
 
   def thumbnail
     @thumbnail ||= begin
-      if edm_object.nil?
+      thumb_source = edm_object || edm_is_shown_by
+      if thumb_source.nil?
         nil
       else
-        "#{Rails.application.config.x.europeana_api_url}/thumbnail-by-url.json?type=SOUND&uri=" + CGI.escape(edm_object)
+        "#{Rails.application.config.x.europeana_api_url}/thumbnail-by-url.json?type=SOUND&uri=" + CGI.escape(thumb_source)
       end
     end
   end

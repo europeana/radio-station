@@ -5,15 +5,15 @@ class Tune < ApplicationRecord
   include EDM::Rights
 
   belongs_to :origin
-  has_many :tracks
+  has_many :tracks, dependent: :destroy
   has_many :playlists, through: :tracks
   has_many :plays, dependent: :nullify
   has_and_belongs_to_many :stations
 
-  validates :web_resource_uri, :uuid, presence: true
-  validates :web_resource_uri, uniqueness: true
+  validates :europeana_record_id, :web_resource_uri, :uuid, presence: true
+  validates :web_resource_uri, uniqueness: { scope: :europeana_record_id }
 
-  delegate :title, :thumbnail, :europeana_record_id, :provider, to: :origin
+  delegate :title, :thumbnail, :provider, to: :origin
 
   before_validation do |tune|
     while tune.uuid.nil?
