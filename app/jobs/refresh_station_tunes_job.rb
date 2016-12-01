@@ -37,17 +37,10 @@ class RefreshStationTunesJob < ApplicationJob
       (response['items'] || []).each do |item|
         origin = Origin.find_by_europeana_record_id(item['id'])
 
-        unless origin.present?
+        if origin.present?
+          AddOriginTunesToPlaylistJob.perform_later(origin.id, playlist.id)
+        else
           HarvestOriginJob.perform_later(item['id'], playlist_id)
-          next
-        end
-
-        station.tunes << origin.tunes
-
-        # Create `Track` records
-        origin.tunes.each do |tune|
-          # Create `Track` record
-          Track.create(playlist_id: playlist.id, tune_id: tune.id)
         end
       end
     end

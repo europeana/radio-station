@@ -8,15 +8,6 @@ class HarvestOriginJob < ApplicationJob
     origin.metadata = fetch_europeana_record(europeana_record_id)
     origin.save!
 
-    playlist = Playlist.find_by_id(playlist_id)
-    return if playlist.nil?
-
-    playlist.station.tunes << origin.tunes
-
-    # Create `Track` records
-    origin.tunes.each do |tune|
-      # Create `Track` record
-      Track.create(playlist_id: playlist.id, tune_id: tune.id)
-    end
+    AddOriginTunesToPlaylistJob.perform_later(origin.id, playlist.id)
   end
 end
