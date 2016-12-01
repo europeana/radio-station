@@ -3,6 +3,6 @@
 :queues:
   - playlist_live
   - playlist_generation
-  - api_search
+  - refresh_station_tunes
   - api_record
   - api_facets

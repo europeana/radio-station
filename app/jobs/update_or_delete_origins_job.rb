@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UpdateOrDeleteOriginsJob < ApplicationJob
   queue_as :api_record
 
