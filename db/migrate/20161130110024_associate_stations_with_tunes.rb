@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AssociateStationsWithTunes < ActiveRecord::Migration[5.0]
   def change
     create_table :stations_tunes, id: false do |t|
