@@ -20,7 +20,7 @@ class Origin < ApplicationRecord
   end
 
   def extract_tunes_from_metadata
-    self.transaction do
+    transaction do
       tune_ids_were = tune_ids
       tune_ids_are = playable_web_resources.map do |web_resource|
         create_or_update_tune_from_web_resource(web_resource).id
