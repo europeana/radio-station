@@ -38,7 +38,7 @@ class RefreshStationTunesJob < ApplicationJob
         origin = Origin.find_by_europeana_record_id(item['id'])
 
         unless origin.present?
-          HarvestOriginJob.perform_later(item['id'])
+          HarvestOriginJob.perform_later(item['id'], playlist_id)
           next
         end
 
