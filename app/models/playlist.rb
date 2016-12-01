@@ -4,6 +4,7 @@
 class Playlist < ApplicationRecord
   belongs_to :station
   has_many :tracks, -> { order('order': :asc) }, dependent: :destroy
+  has_many :tunes, through: :tracks
 
   validates :station_id, presence: true
 
