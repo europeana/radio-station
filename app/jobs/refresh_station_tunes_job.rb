@@ -42,6 +42,8 @@ class RefreshStationTunesJob < ApplicationJob
           next
         end
 
+        station.tunes << origin.tunes
+
         # Create `Track` records
         origin.tunes.each do |tune|
           # Create `Track` record
