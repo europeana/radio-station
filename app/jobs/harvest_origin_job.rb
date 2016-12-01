@@ -8,6 +8,6 @@ class HarvestOriginJob < ApplicationJob
     origin.metadata = fetch_europeana_record(europeana_record_id)
     origin.save!
 
-    AddOriginTunesToPlaylistJob.perform_later(origin.id, playlist.id)
+    AddOriginTunesToPlaylistJob.perform_later(origin.id, playlist_id)
   end
 end
