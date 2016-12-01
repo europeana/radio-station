@@ -25,3 +25,6 @@
 
 # Ignore coverage reports
 /coverage
+
+# Ignore CF manifest
+/manifest.yml
