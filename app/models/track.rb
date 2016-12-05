@@ -11,7 +11,7 @@ class Track < ApplicationRecord
   delegate :metadata, :thumbnail, :uri, :title, :creator, :europeana_record_id,
            :edm_rights, :edm_rights_label, :provider, to: :tune
 
-  validates :playlist, :tune, :order, :uuid, presence: true
+  validates :playlist, :tune, :order, presence: true
   validates :tune_id, uniqueness: { scope: :playlist_id }
   validates :order, uniqueness: { scope: :playlist_id }
 
@@ -21,13 +21,6 @@ class Track < ApplicationRecord
       track.order = rand(2_147_483_647) # PG int max
       if Track.where.not(id: track.id).where(playlist_id: track.playlist_id, order: track.order).count > 0
         track.order = nil
-      end
-    end
-
-    while track.uuid.nil?
-      track.uuid = SecureRandom.uuid
-      if Track.where(uuid: track.uuid).count > 0
-        track.uuid = nil
       end
     end
   end

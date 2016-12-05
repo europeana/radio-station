@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201130239) do
+ActiveRecord::Schema.define(version: 20161205124338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20161201130239) do
     t.integer  "order",       null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.string   "uuid",        null: false
+    t.string   "uuid"
     t.index ["order"], name: "index_tracks_on_order", using: :btree
     t.index ["playlist_id"], name: "index_tracks_on_playlist_id", using: :btree
     t.index ["tune_id"], name: "index_tracks_on_tune_id", using: :btree
