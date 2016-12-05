@@ -27,11 +27,90 @@ unless Station.find_by_theme_type_and_slug(:genre, :popular)
   )
 end
 
-['National Library of Latvia', 'Sächsische Landesbibliothek - Staats- und Universitätsbibliothek Dresden', 'LMTA (DIZI)', 'Comhaltas Traditional Music Archive', 'Irish Traditional Music Archive', 'Tobar an Dualchais/Kist o Riches', 'Cluj County Centre for the Preservation and Promotion of Traditional Culture', 'Bibliothèque Medem - Maison de la Culture Yiddish', 'Music Library of Greece of The Friends of Music Society', 'Statsbiblioteket', 'Internet Archive'].each do |institution|
-  next unless Station.find_by_theme_type_and_name(:institution, institution).nil?
+unless Station.find_by_theme_type_and_name(:institution, 'National Library of Latvia')
   Station.create(
-    name: institution,
-    api_query: %(DATA_PROVIDER:"#{institution}"),
+    name: 'National Library of Latvia',
+    api_query: 'DATA_PROVIDER:"National Library of Latvia"',
+    theme_type: :institution
+  )
+end
+
+unless Station.find_by_theme_type_and_name(:institution, 'Sächsische Landesbibliothek - Staats- und Universitätsbibliothek Dresden')
+  Station.create(
+    name: 'Sächsische Landesbibliothek - Staats- und Universitätsbibliothek Dresden',
+    api_query: 'DATA_PROVIDER:"Sächsische Landesbibliothek - Staats- und Universitätsbibliothek Dresden"',
+    theme_type: :institution
+  )
+end
+
+unless Station.find_by_theme_type_and_name(:institution, 'LMTA (DIZI)')
+  Station.create(
+    name: 'LMTA (DIZI)',
+    api_query: 'DATA_PROVIDER:"LMTA (DIZI)"',
+    theme_type: :institution
+  )
+end
+
+unless Station.find_by_theme_type_and_name(:institution, 'Comhaltas Traditional Music Archive')
+  Station.create(
+    name: 'Comhaltas Traditional Music Archive',
+    api_query: 'DATA_PROVIDER:"Comhaltas Traditional Music Archive"',
+    theme_type: :institution
+  )
+end
+
+unless Station.find_by_theme_type_and_name(:institution, 'Irish Traditional Music Archive')
+  Station.create(
+    name: 'Irish Traditional Music Archive',
+    api_query: 'DATA_PROVIDER:"Irish Traditional Music Archive"',
+    theme_type: :institution
+  )
+end
+
+unless Station.find_by_theme_type_and_name(:institution, 'Tobar an Dualchais/Kist o Riches')
+  Station.create(
+    name: 'Tobar an Dualchais/Kist o Riches',
+    api_query: 'DATA_PROVIDER:"Tobar an Dualchais/Kist o Riches"',
+    theme_type: :institution
+  )
+end
+
+unless Station.find_by_theme_type_and_name(:institution, 'Cluj County Centre for the Preservation and Promotion of Traditional Culture')
+  Station.create(
+    name: 'Cluj County Centre for the Preservation and Promotion of Traditional Culture',
+    api_query: 'DATA_PROVIDER:"Cluj County Centre for the Preservation and Promotion of Traditional Culture"',
+    theme_type: :institution
+  )
+end
+
+unless Station.find_by_theme_type_and_name(:institution, 'Bibliothèque Medem - Maison de la Culture Yiddish')
+  Station.create(
+    name: 'Bibliothèque Medem - Maison de la Culture Yiddish',
+    api_query: 'DATA_PROVIDER:"Bibliothèque Medem - Maison de la Culture Yiddish"',
+    theme_type: :institution
+  )
+end
+
+unless Station.find_by_theme_type_and_name(:institution, 'Music Library of Greece of The Friends of Music Society')
+  Station.create(
+    name: 'Music Library of Greece of The Friends of Music Society',
+    api_query: 'DATA_PROVIDER:"Music Library of Greece of The Friends of Music Society"',
+    theme_type: :institution
+  )
+end
+
+unless Station.find_by_theme_type_and_name(:institution, 'Statsbiblioteket')
+  Station.create(
+    name: 'Statsbiblioteket',
+    api_query: 'DATA_PROVIDER:"Statsbiblioteket"',
+    theme_type: :institution
+  )
+end
+
+unless Station.find_by_theme_type_and_name(:institution, 'Internet Archive')
+  Station.create(
+    name: 'Internet Archive',
+    api_query: 'DATA_PROVIDER:"Internet Archive"',
     theme_type: :institution
   )
 end
