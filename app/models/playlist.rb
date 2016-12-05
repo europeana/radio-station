@@ -11,7 +11,7 @@ class Playlist < ApplicationRecord
   before_create :generate
 
   def generate
-    self.tracks = station.tune_ids.map { |tune_id| Track.new(tune: tune_id, playlist: self) }
+    self.tracks = station.tune_ids.map { |tune_id| Track.new(tune_id: tune_id, playlist: self) }
   end
 
   def live!
