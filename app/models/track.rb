@@ -19,7 +19,7 @@ class Track < ApplicationRecord
     # Set a random track order, unique to this playlist
     while track.order.nil?
       track.order = rand(2_147_483_647) # PG int max
-      if Track.where.not(id: track.id).where(playlist_id: track.playlist_id, order: track.order).count > 0
+      if Track.where.not(id: track.id).where(playlist_id: track.playlist_id, order: track.order).count.nonzero?
         track.order = nil
       end
     end

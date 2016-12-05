@@ -12,7 +12,7 @@ include Clockwork
 
 every(1.day, 'stations.playlists.refresh', at: ENV['SCHEDULE_PLAYLIST_REFRESH']) do
   Station.find_each do |station|
-    GenerateNewStationPlaylistJob.perform_later(station.id)
+    ShuffleStationPlaylistJob.perform_later(station.id)
   end
 end
 

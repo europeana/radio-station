@@ -8,13 +8,18 @@ class Playlist < ApplicationRecord
 
   validates :station_id, presence: true
 
-  around_create :generate_tracks
-
   def generate_tracks
     transaction do
-      yield
       station.tune_ids.shuffle.each_with_index do |tune_id, index|
         Track.create!(tune_id: tune_id, playlist_id: id, order: index + 1)
+      end
+    end
+  end
+
+  def randomise_tracks
+    Track.transaction do
+      track_ids.shuffle.each_with_index do |track_id, index|
+        Track.where(id: track_id).update_all(order: index + 1)
       end
     end
   end
