@@ -8,10 +8,15 @@ class Playlist < ApplicationRecord
 
   validates :station_id, presence: true
 
-  before_create :generate
+  around_create :generate_tracks
 
-  def generate
-    self.tracks = station.tune_ids.map { |tune_id| Track.new(tune_id: tune_id, playlist: self) }
+  def generate_tracks
+    transaction do
+      yield
+      station.tune_ids.shuffle.each_with_index do |tune_id, index|
+        Track.create!(tune_id: tune_id, playlist_id: id, order: index + 1)
+      end
+    end
   end
 
   def live!
