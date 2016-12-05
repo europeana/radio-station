@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class AddUuidToTune < ActiveRecord::Migration[5.0]
+  class Tune < ApplicationRecord; end
+
   def up
     add_column :tunes, :uuid, :string
     add_index :tunes, :uuid, unique: true
