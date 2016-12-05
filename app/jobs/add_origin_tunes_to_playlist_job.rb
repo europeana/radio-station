@@ -14,7 +14,7 @@ class AddOriginTunesToPlaylistJob < ApplicationJob
     playlist_id = job.arguments[1]
     playlist = Playlist.find(playlist_id)
     playlist.decrement!(:jobs)
-    MakePlaylistLiveJob.perform_later(playlist_id) if playlist.jobs.zero?
+    MakePlaylistLiveJob.perform_later(playlist_id) if playlist.reload.jobs.zero?
   end
 
   def perform(origin_id, playlist_id)
