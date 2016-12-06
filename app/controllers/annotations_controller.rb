@@ -5,22 +5,40 @@ class AnnotationsController < ApplicationController
     render json: annotations_for_tune(tune).to_json
   end
 
+  def create
+    tune = Tune.find_by_uuid!(params[:tune_id])
+    payload = JSON.parse(request.body.read).merge(target: target_id(tune))
+
+    api_params = annotations_api_env_params.merge(userToken: ENV['EUROPEANA_ANNOTATIONS_API_USER_TOKEN'],
+                                                  body: payload.to_json)
+
+    response = Europeana::API.annotation.create(api_params)
+    render json: response.to_json
+  rescue Europeana::API::Errors::Base => e
+    response = e.faraday_response.body.without('apikey')
+    render json: response, status: e.faraday_response.status
+  end
+
   protected
 
   def annotations_for_tune(tune)
     search = Europeana::API.annotation.search(annotations_api_search_params(tune))
 
     Europeana::API.in_parallel do |queue|
-      search['items'].each do |item|
+      (search['items'] || []).each do |item|
         provider, id = item.split('/')[-2..-1]
         queue.add(:annotation, :fetch, annotations_api_fetch_params(provider, id))
       end
     end
   end
 
+  def target_id(tune)
+    "http://data.europeana.eu/item#{tune.europeana_record_id}"
+  end
+
   def annotations_api_search_params(tune)
     {
-      query: %(target_id:"http://data.europeana.eu/item#{tune.europeana_record_id}"),
+      query: %(target_id:"#{target_id(tune)}"),
       pageSize: 100
     }.merge(annotations_api_env_params)
   end
