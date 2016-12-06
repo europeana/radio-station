@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/europeana/europeana-api-client-ruby.git
-  revision: 016362ffbb26b3a0f4beaab231f521c95e2d783c
+  revision: ec2cd1201315f6b66f5c35d1912ac211190da174
   branch: develop
   specs:
     europeana-api (0.5.2)
@@ -76,7 +76,7 @@ GEM
       dotenv (= 2.1.1)
       railties (>= 4.0, < 5.1)
     erubis (2.7.0)
-    ethon (0.9.1)
+    ethon (0.10.1)
       ffi (>= 1.3.0)
     europeana-logging (0.0.4)
       lograge (~> 0.4)
@@ -117,14 +117,14 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
-    minitest (5.9.1)
+    minitest (5.10.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
     newrelic_rpm (3.17.1.326)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
-    parser (2.3.3.0)
+    parser (2.3.3.1)
       ast (~> 2.2)
     pg (0.19.0)
     powerpack (0.1.1)
@@ -176,7 +176,7 @@ GEM
     shoulda-context (1.2.2)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
-    sidekiq (4.2.6)
+    sidekiq (4.2.7)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
@@ -204,12 +204,12 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.5)
     tins (1.13.0)
-    typhoeus (1.1.0)
+    typhoeus (1.1.2)
       ethon (>= 0.9.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     unicode-display_width (1.1.1)
-    webmock (2.1.0)
+    webmock (2.3.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
@@ -245,4 +245,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.13.1
+   1.13.6
