@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :tunes, only: [] do
     get :play, on: :member
+    resources :annotations, only: [:index, :create]
   end
 
   # Deprecated, to be removed in future
