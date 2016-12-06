@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/europeana/europeana-api-client-ruby.git
-  revision: ec2cd1201315f6b66f5c35d1912ac211190da174
+  revision: 59d2fea3862c2f72d6bd984b791445059a0cf40d
   branch: develop
   specs:
     europeana-api (0.5.2)

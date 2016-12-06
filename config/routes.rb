@@ -16,7 +16,10 @@ Rails.application.routes.draw do
   get '/stations/folk(.:format)', to: redirect('/stations/genres/folk.%{format}')
 
   resources :tunes, only: [] do
-    get :play, on: :member
+    member do
+      get :annotations
+      get :play
+    end
   end
 
   # Deprecated, to be removed in future
