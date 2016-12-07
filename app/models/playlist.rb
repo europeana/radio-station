@@ -3,7 +3,7 @@
 # A playlist is a set of tunes to be played on a station
 class Playlist < ApplicationRecord
   belongs_to :station
-  has_many :tracks, -> { order('order': :asc) }, dependent: :destroy
+  has_many :tracks, -> { order('order': :asc) }, dependent: :delete_all
   has_many :tunes, through: :tracks
 
   validates :station_id, presence: true
