@@ -26,6 +26,7 @@ class Playlist < ApplicationRecord
 
   def live!
     fail 'Playlist has no tracks' unless tracks.present?
+    fail 'Playlist has jobs pending' unless jobs.zero?
     transaction do
       update_attributes(live: true)
       update_station_tune_ids
