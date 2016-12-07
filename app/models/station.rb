@@ -10,6 +10,8 @@ class Station < ApplicationRecord
   validates :name, :api_query, :slug, presence: true
   validates :name, :slug, uniqueness: { scope: :theme_type }
 
+  default_scope { order('name ASC') }
+
   # NB: we are not really allowing duplicates, but rather want the uniqueness
   # validation above to fail, preventing record creation.
   acts_as_url :name, url_attribute: :slug, only_when_blank: true,
