@@ -5,12 +5,15 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
 gem 'clockwork', '~> 2.0'
 gem 'europeana-api', github: 'europeana/europeana-api-client-ruby', branch: 'develop'
-gem 'europeana-logging', '~> 0.0.3'
 gem 'jbuilder', '~> 2.6'
 gem 'pg', '~> 0.18'
 gem 'rack-cors'
 gem 'sidekiq'
 gem 'stringex', '~> 2.6'
+
+group :production do
+  gem 'europeana-logging', '~> 0.1.0'
+end
 
 group :production, :development do
   gem 'newrelic_rpm', '~> 3.16'
