@@ -3,7 +3,7 @@ require 'test_helper'
 
 class PlaylistTest < ActiveSupport::TestCase
   should belong_to(:station)
-  should have_many(:tracks).dependent(:destroy)
+  should have_many(:tracks).dependent(:delete_all)
   should validate_presence_of(:station_id)
 
   test 'it should generated randomised tracks' do
