@@ -7,7 +7,7 @@ class AnnotationsController < ApplicationController
 
   def create
     tune = Tune.find_by_uuid!(params[:tune_id])
-    payload = JSON.parse(request.body.read).merge(target: target_id(tune))
+    payload = JSON.parse(request.body.read).merge(target: target_id(tune), generator: generator)
 
     api_params = annotations_api_env_params.merge(userToken: ENV['EUROPEANA_ANNOTATIONS_API_USER_TOKEN'],
                                                   body: payload.to_json)
@@ -20,6 +20,14 @@ class AnnotationsController < ApplicationController
   end
 
   protected
+
+  def generator
+    {
+      id: 'http://radio-player.europeana.eu/',
+      name: 'Europeana.eu radio',
+      type: 'Software'
+    }
+  end
 
   def annotations_for_tune(tune)
     search = Europeana::API.annotation.search(annotations_api_search_params(tune))
