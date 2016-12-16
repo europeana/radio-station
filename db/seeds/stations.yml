@@ -29,7 +29,7 @@
   :api_query: DATA_PROVIDER:"Internet Archive"
 - :theme_type: institution
   :name: Bibliothèque Medem - Maison de la Culture Yiddish
-  :api_query: DATA_PROVIDER:"Bibliothèque Medem - Maison de la Culture Yiddish"
+  :api_query: edm_datasetName:"09301_Ag_EU_Judaica_mcy78"
 - :theme_type: institution
   :name: Cluj County Centre for the Preservation and Promotion of Traditional Culture
   :api_query: DATA_PROVIDER:"Cluj County Centre for the Preservation and Promotion
@@ -44,7 +44,7 @@
   :name: Irish Traditional Music Archive
   :api_query: DATA_PROVIDER:"Irish Traditional Music Archive"
 - :theme_type: institution
-  :name: LMTA (DIZI)
+  :name: Lithuanian Music and Theatre Academy 
   :api_query: DATA_PROVIDER:"LMTA (DIZI)"
 - :theme_type: institution
   :name: Music Library of Greece of The Friends of Music Society
@@ -53,12 +53,12 @@
   :name: National Library of Latvia
   :api_query: DATA_PROVIDER:"National Library of Latvia"
 - :theme_type: institution
-  :name: Statsbiblioteket
+  :name: Statsbiblioteket, Denmark
   :api_query: DATA_PROVIDER:"Statsbiblioteket"
 - :theme_type: institution
   :name: Sächsische Landesbibliothek - Staats- und Universitätsbibliothek Dresden
   :api_query: DATA_PROVIDER:"Sächsische Landesbibliothek - Staats- und Universitätsbibliothek
     Dresden"
 - :theme_type: institution
-  :name: Tobar an Dualchais/Kist o Riches
+  :name: Tobar an Dualchais/Kist o Riches, Scotland
   :api_query: DATA_PROVIDER:"Tobar an Dualchais/Kist o Riches"
