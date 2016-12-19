@@ -12,7 +12,7 @@ gem 'sidekiq'
 gem 'stringex', '~> 2.6'
 
 group :production do
-  gem 'europeana-logging', '~> 0.1.0'
+  gem 'europeana-logging', '~> 0.1.1'
 end
 
 group :production, :development do
