@@ -1,0 +1,64 @@
+---
+- :theme_type: genre
+  :name: Classical Music
+  :api_query: DATA_PROVIDER:("National Library of Latvia" OR "Sächsische Landesbibliothek
+    - Staats- und Universitätsbibliothek Dresden")
+- :theme_type: genre
+  :name: Folk and Traditional Music
+  :api_query: (DATA_PROVIDER:("LMTA (DIZI)" OR "Comhaltas Traditional Music Archive"
+    OR "Irish Traditional Music Archive" OR "Tobar an Dualchais/Kist o Riches" OR
+    "Cluj County Centre for the Preservation and Promotion of Traditional Culture"
+    OR "Bibliothèque Medem - Maison de la Culture Yiddish" OR "Music Library of Greece
+    of The Friends of Music Society" OR "Statsbiblioteket")) AND (what:(music OR música
+    OR musique OR musik OR musica OR musicales OR muziek OR muzyka OR muzică OR "zenés
+    előadás" OR "notated music" OR "traditional and folk music" OR "folk songs" OR
+    "sheet music" OR score OR "musical Instrument" OR partitur OR partituras OR gradual
+    OR libretto OR oper OR concerto OR symphony OR sonata OR fugue OR motet OR estampie
+    OR "gregorian chant" OR saltarello OR organum OR ballade OR chanson OR galliard
+    OR laude OR madrigal OR pavane OR ricercar OR tiento OR toccata OR cantata OR
+    chaconne OR gavotte OR gigue OR minuet OR partita OR passacaglia OR sarabande
+    OR sinfonia OR hymnes OR lied OR mazurka OR "music hall" OR quartet OR quintet
+    OR requiem OR rhapsody OR rondo OR scherzo OR "sinfonia concertante" OR waltz
+    OR ballet OR zanger OR chanteur OR chanteuse OR sång OR sångare OR sänger OR cantante
+    OR sopran OR tenor OR sängerin OR composer OR compositeur OR orchestra OR orchester
+    OR orkester OR orchestre OR concert OR concierto OR konsert OR konzert OR koncert
+    OR gramophone OR "record player" OR phonograph OR fonograaf OR fonograf OR grammofon
+    OR skivspelare OR "wax cylinder" OR jukebox OR "cassette deck" OR "cassette player"))
+- :theme_type: genre
+  :name: Popular Music
+  :api_query: DATA_PROVIDER:"Internet Archive"
+- :theme_type: institution
+  :name: Bibliothèque Medem - Maison de la Culture Yiddish
+  :api_query: DATA_PROVIDER:"Bibliothèque Medem - Maison de la Culture Yiddish"
+- :theme_type: institution
+  :name: Cluj County Centre for the Preservation and Promotion of Traditional Culture
+  :api_query: DATA_PROVIDER:"Cluj County Centre for the Preservation and Promotion
+    of Traditional Culture"
+- :theme_type: institution
+  :name: Comhaltas Traditional Music Archive
+  :api_query: DATA_PROVIDER:"Comhaltas Traditional Music Archive"
+- :theme_type: institution
+  :name: Internet Archive
+  :api_query: DATA_PROVIDER:"Internet Archive"
+- :theme_type: institution
+  :name: Irish Traditional Music Archive
+  :api_query: DATA_PROVIDER:"Irish Traditional Music Archive"
+- :theme_type: institution
+  :name: LMTA (DIZI)
+  :api_query: DATA_PROVIDER:"LMTA (DIZI)"
+- :theme_type: institution
+  :name: Music Library of Greece of The Friends of Music Society
+  :api_query: DATA_PROVIDER:"Music Library of Greece of The Friends of Music Society"
+- :theme_type: institution
+  :name: National Library of Latvia
+  :api_query: DATA_PROVIDER:"National Library of Latvia"
+- :theme_type: institution
+  :name: Statsbiblioteket
+  :api_query: DATA_PROVIDER:"Statsbiblioteket"
+- :theme_type: institution
+  :name: Sächsische Landesbibliothek - Staats- und Universitätsbibliothek Dresden
+  :api_query: DATA_PROVIDER:"Sächsische Landesbibliothek - Staats- und Universitätsbibliothek
+    Dresden"
+- :theme_type: institution
+  :name: Tobar an Dualchais/Kist o Riches
+  :api_query: DATA_PROVIDER:"Tobar an Dualchais/Kist o Riches"

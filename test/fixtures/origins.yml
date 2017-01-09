@@ -1,11 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  europeana_record_id: /abc/123
+adelaide:
+  europeana_record_id: /2048401/item_ZZZCVMSY5KLZAN5TBYYHL6WULVQEAWOX
   metadata:
-    about: /abc/123
+    about: /2048401/item_ZZZCVMSY5KLZAN5TBYYHL6WULVQEAWOX
 
-two:
-  europeana_record_id: /abc/124
+karmen:
+  europeana_record_id: /2059201/data_sounds_68822
   metadata:
-    about: /abc/124
+    about: /2059201/data_sounds_68822
+
+norroway:
+  europeana_record_id: /2059215/data_sounds_TADM40037
+  metadata:
+    about: /2059215/data_sounds_TADM40037

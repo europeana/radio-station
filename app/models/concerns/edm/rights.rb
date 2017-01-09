@@ -22,8 +22,9 @@ module EDM
 
     class_methods do
       def edm_rights_label(rights)
-        i18n_key = EDM_RIGHTS_PATTERNS.detect { |_k, v| rights =~ v }.first
-        I18n.t(i18n_key.to_s.tr('_', '-'), scope: 'copyright')
+        i18n_key = EDM_RIGHTS_PATTERNS.detect { |_k, v| rights =~ v }
+        return rights if i18n_key.nil?
+        I18n.t(i18n_key.first.to_s.tr('_', '-'), scope: 'copyright')
       end
     end
 

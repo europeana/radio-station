@@ -1,9 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+adelaide_mp3:
+  origin: adelaide
+  web_resource_uri: http://media.slub-dresden.de/fon/snp/a/009666/fon_snp_a_009666_01.mp3
+  uuid: 3b9f4d49-7e56-4177-bf4f-045f52c4bcc9
 
-one:
-  origin: one
-  web_resource_uri: http://provider.example.com/abc/123
+karmen_mp3:
+  origin: karmen
+  web_resource_uri: http://dom.lndb.lv/data/obj/file/303759
+  uuid: 2336b61e-14ba-46f8-bb9f-f23cc92faeb4
 
-two:
-  origin: two
-  web_resource_uri: http://provider.example.com/abc/124
+norroway_mp4:
+  origin: norroway
+  web_resource_uri: http://tadstream.edina.ac.uk/TAD_STREAM/SOSS/011371_099760/011371_099760.mp4
+  uuid: 90199908-0dbc-4807-9b68-3ba2ded54793

@@ -2,5 +2,8 @@
 :concurrency: 5
 :queues:
   - playlist_live
-  - api_search
+  - playlist_generation
+  - refresh_station_tunes
+  - add_origin_tunes_to_playlist
   - api_record
+  - api_facets

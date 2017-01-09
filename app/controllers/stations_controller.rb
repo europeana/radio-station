@@ -1,48 +1,45 @@
 # frozen_string_literal: true
 class StationsController < ApplicationController
-  JINGLE_RATE = 5
-
   def index
-    @stations = Station.all
+    conditions = params.key?(:theme_type) ? { theme_type: params[:theme_type] } : nil
+    @stations = Station.where(conditions).includes(:playlist).select do |station|
+      station.playlist.present?
+    end
   end
 
   def show
-    @station = Station.includes(:playlist).find_by_slug!(params[:id])
-    @tracks = tracks
+    @station = Station.includes(:playlist).find_by_theme_type_and_slug!(params[:theme_type], params[:slug])
+    @tracks = paginated_station_tracks
+    @total_tracks = total_track_count
   end
 
   protected
 
-  def tracks
-    return [] if @station.playlist.nil?
-    @station.playlist.tracks.includes(:tune, :origin).limit(limit).offset(offset)
+  def paginated_station_tracks
+    station_tracks.nil? ? [] : station_tracks.limit(limit).offset(offset)
   end
 
-  # @fixme Doesn't work well with pagination
-  def tracks_with_jingles
-    tracks.to_a.tap do |jingly|
-      jingly.each_with_index do |_track, i|
-        jingly.insert(i, jingle(station: true)) if time_for_a_jingle?(i)
+  def total_track_count
+    station_tracks.nil? ? 0 : station_tracks.count
+  end
+
+  def station_tracks
+    @station_tracks ||= begin
+      return nil if @station.playlist.nil?
+
+      station_tracks = @station.playlist.tracks.includes(:tune, :origin)
+
+      # Filter by another station's playlist, e.g. for all of one institution's
+      # tracks of a particular genre
+      %i(genre institution).each do |theme_type|
+        next unless params[theme_type]
+        other_station = Station.find_by_theme_type_and_slug!(theme_type, params[theme_type])
+        return nil unless other_station.playlist.present?
+        station_tracks = station_tracks.where('tune_id IN (SELECT tunes.id FROM tunes INNER JOIN tracks ON tunes.id=tracks.tune_id WHERE tracks.playlist_id=?)', other_station.playlist.id)
       end
-      jingly.insert(0, jingle(station: false))
+
+      station_tracks
     end
-  end
-
-  def time_for_a_jingle?(i)
-    (i > 0) && (i % JINGLE_RATE == 0)
-  end
-
-  def welcome_jingle_uri
-    'https://s3.eu-central-1.amazonaws.com/europeana-radio/jingles/welcome.mp3'
-  end
-
-  def station_jingle_uri
-    "https://s3.eu-central-1.amazonaws.com/europeana-radio/jingles/#{@station.slug}.mp3"
-  end
-
-  def jingle(station: false)
-    uri = station ? station_jingle_uri : welcome_jingle_uri
-    { 'uri' => uri }
   end
 
   def limit

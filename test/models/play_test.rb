@@ -2,7 +2,7 @@
 require 'test_helper'
 
 class PlayTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  should belong_to(:station)
+  should belong_to(:tune)
+  should have_one(:origin).through(:tune)
 end

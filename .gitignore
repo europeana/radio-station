@@ -19,3 +19,12 @@
 # Ignore dotenv files.
 /.env
 /.env.*
+
+# Ignore Redis snapshots
+*.rdb
+
+# Ignore coverage reports
+/coverage
+
+# Ignore CF manifest
+/manifest.yml
