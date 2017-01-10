@@ -31,6 +31,9 @@
   :name: Bibliothèque Medem - Maison de la Culture Yiddish
   :api_query: DATA_PROVIDER:"Bibliothèque Medem - Maison de la Culture Yiddish"
 - :theme_type: institution
+  :name: Bibliothèque nationale de France
+  :api_query: DATA_PROVIDER:"Bibliothèque nationale de France"
+- :theme_type: institution
   :name: Cluj County Centre for the Preservation and Promotion of Traditional Culture
   :api_query: DATA_PROVIDER:"Cluj County Centre for the Preservation and Promotion
     of Traditional Culture"
