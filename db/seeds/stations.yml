@@ -2,16 +2,14 @@
 - :theme_type: genre
   :name: Classical Music
   :api_query: DATA_PROVIDER:("National Library of Latvia" OR "Sächsische Landesbibliothek
-    - Staats- und Universitätsbibliothek Dresden") OR (DATA_PROVIDER:"Bibliothèque
-    nationale de France" AND what:(Opera OR "classical music"))
+    - Staats- und Universitätsbibliothek Dresden")
 - :theme_type: genre
   :name: Folk and Traditional Music
   :api_query: (DATA_PROVIDER:("LMTA (DIZI)" OR "Comhaltas Traditional Music Archive"
     OR "Irish Traditional Music Archive" OR "Tobar an Dualchais/Kist o Riches" OR
     "Cluj County Centre for the Preservation and Promotion of Traditional Culture"
     OR "Bibliothèque Medem - Maison de la Culture Yiddish" OR "Music Library of Greece
-    of The Friends of Music Society" OR "Statsbiblioteket" OR "Bibliothèque nationale de
-    France")) AND (what:(music OR música
+    of The Friends of Music Society" OR "Statsbiblioteket")) AND (what:(music OR música
     OR musique OR musik OR musica OR musicales OR muziek OR muzyka OR muzică OR "zenés
     előadás" OR "notated music" OR "traditional and folk music" OR "folk songs" OR
     "sheet music" OR score OR "musical Instrument" OR partitur OR partituras OR gradual
@@ -28,14 +26,10 @@
     OR skivspelare OR "wax cylinder" OR jukebox OR "cassette deck" OR "cassette player"))
 - :theme_type: genre
   :name: Popular Music
-  :api_query: DATA_PROVIDER:"Internet Archive" OR (DATA_PROVIDER:"Bibliothèque
-    nationale de France" AND what:popular)
+  :api_query: DATA_PROVIDER:"Internet Archive"
 - :theme_type: institution
   :name: Bibliothèque Medem - Maison de la Culture Yiddish
   :api_query: DATA_PROVIDER:"Bibliothèque Medem - Maison de la Culture Yiddish"
-- :theme_type: institution
-  :name: Bibliothèque nationale de France
-  :api_query: DATA_PROVIDER:"Bibliothèque nationale de France"
 - :theme_type: institution
   :name: Cluj County Centre for the Preservation and Promotion of Traditional Culture
   :api_query: DATA_PROVIDER:"Cluj County Centre for the Preservation and Promotion
