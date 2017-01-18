@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161205124338) do
+ActiveRecord::Schema.define(version: 20170111113903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20161205124338) do
   create_table "stations_tunes", id: false, force: :cascade do |t|
     t.integer "station_id"
     t.integer "tune_id"
+    t.index ["station_id", "tune_id"], name: "index_stations_tunes_on_station_id_and_tune_id", using: :btree
     t.index ["station_id"], name: "index_stations_tunes_on_station_id", using: :btree
     t.index ["tune_id"], name: "index_stations_tunes_on_tune_id", using: :btree
   end
@@ -68,7 +69,7 @@ ActiveRecord::Schema.define(version: 20161205124338) do
     t.index ["order"], name: "index_tracks_on_order", using: :btree
     t.index ["playlist_id"], name: "index_tracks_on_playlist_id", using: :btree
     t.index ["tune_id"], name: "index_tracks_on_tune_id", using: :btree
-    t.index ["uuid"], name: "index_tracks_on_uuid", unique: true, using: :btree
+    t.index ["uuid"], name: "index_tracks_on_uuid", using: :btree
   end
 
   create_table "tunes", force: :cascade do |t|

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class AddMetadataToTune < ActiveRecord::Migration[5.0]
-  class Tune < ApplicationRecord; end
+  class Tune < ApplicationRecord
+    belongs_to :origin
+  end
 
   def change
     add_column :tunes, :metadata, :json
