@@ -1,8 +1,11 @@
 ---
+# Genres
 - :theme_type: genre
   :name: Classical Music
   :api_query: DATA_PROVIDER:("National Library of Latvia" OR "Sächsische Landesbibliothek
-    - Staats- und Universitätsbibliothek Dresden")
+    - Staats- und Universitätsbibliothek Dresden") OR
+    (europeana_collectionName:(2059222_Ag_EU_eSOUNDS_1030_LARHRA-CNRS) AND
+    what:"classical music")
 - :theme_type: genre
   :name: Folk and Traditional Music
   :api_query: (DATA_PROVIDER:("LMTA (DIZI)" OR "Comhaltas Traditional Music Archive"
@@ -24,9 +27,14 @@
     OR orkester OR orchestre OR concert OR concierto OR konsert OR konzert OR koncert
     OR gramophone OR "record player" OR phonograph OR fonograaf OR fonograf OR grammofon
     OR skivspelare OR "wax cylinder" OR jukebox OR "cassette deck" OR "cassette player"))
+    OR (europeana_collectionName:(2059222_Ag_EU_eSOUNDS_1030_LARHRA-CNRS) AND
+    what:"traditional and folk music")
 - :theme_type: genre
   :name: Popular Music
-  :api_query: DATA_PROVIDER:"Internet Archive"
+  :api_query: DATA_PROVIDER:"Internet Archive" OR
+    (europeana_collectionName:(2059222_Ag_EU_eSOUNDS_1030_LARHRA-CNRS) AND
+    what:"popular music")
+# Institutions
 - :theme_type: institution
   :name: Bibliothèque Medem - Maison de la Culture Yiddish
   :api_query: DATA_PROVIDER:"Bibliothèque Medem - Maison de la Culture Yiddish"
@@ -34,6 +42,9 @@
   :name: Cluj County Centre for the Preservation and Promotion of Traditional Culture
   :api_query: DATA_PROVIDER:"Cluj County Centre for the Preservation and Promotion
     of Traditional Culture"
+- :theme_type: institution
+  :name: CNRS-LARHRA-Phonobase
+  :api_query: DATA_PROVIDER:"CNRS-LARHRA-Phonobase"
 - :theme_type: institution
   :name: Comhaltas Traditional Music Archive
   :api_query: DATA_PROVIDER:"Comhaltas Traditional Music Archive"
