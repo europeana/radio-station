@@ -34,7 +34,7 @@ class AnnotationsController < ApplicationController
 
     return [] unless search['items']
     return [search['items']].flatten unless search['items'].any? { |item| item.is_a?(String) }
-    
+
     Europeana::API.in_parallel do |queue|
       search['items'].each do |item|
         provider, id = item.split('/')[-2..-1]
