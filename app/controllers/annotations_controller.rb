@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 class AnnotationsController < ApplicationController
+  rescue_from Europeana::API::Errors::Base do |exception|
+    api_response = exception.faraday_response.body
+    response = if api_response.is_a?(Hash)
+                 api_response.without('apikey')
+               else
+                 { success: false, error: exception.message }
+               end
+    render json: response, status: exception.faraday_response.status
+  end
+
   def index
     tune = Tune.find_by_uuid!(params[:tune_id])
     render json: annotations_for_tune(tune).to_json
@@ -14,9 +24,6 @@ class AnnotationsController < ApplicationController
 
     response = Europeana::API.annotation.create(api_params)
     render json: response.to_json
-  rescue Europeana::API::Errors::Base => e
-    response = e.faraday_response.body.without('apikey')
-    render json: response, status: e.faraday_response.status
   end
 
   protected
