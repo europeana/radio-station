@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/europeana/europeana-api-client-ruby.git
-  revision: 59d2fea3862c2f72d6bd984b791445059a0cf40d
+  revision: 31d3aed09b33496941ff9fe0382bf5a7866c7df9
   branch: develop
   specs:
     europeana-api (0.5.2)
@@ -83,9 +83,9 @@ GEM
       logstash-event (~> 1.2)
       logstash-logger (~> 0.19)
       rails (> 4.2, < 6)
-    faraday (0.10.0)
+    faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.10.1)
+    faraday_middleware (0.11.0.1)
       faraday (>= 0.7.4, < 1.0)
     ffi (1.9.14)
     foreman (0.82.0)
@@ -245,4 +245,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.13.6
+   1.14.6
