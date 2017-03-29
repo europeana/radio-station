@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails', '~> 5.0.2'
 
 gem 'clockwork', '~> 2.0'
 gem 'europeana-api', github: 'europeana/europeana-api-client-ruby', branch: 'develop'
