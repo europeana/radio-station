@@ -17,7 +17,7 @@ class AnnotationsController < ApplicationController
 
   def create
     tune = Tune.find_by_uuid!(params[:tune_id])
-    payload = JSON.parse(request.body.read).merge(target: target_id(tune), generator: generator)
+    payload = JSON.parse(request.body.read).merge(target: target_uri(tune), generator: generator)
 
     api_params = annotations_api_env_params.merge(userToken: ENV['EUROPEANA_ANNOTATIONS_API_USER_TOKEN'],
                                                   body: payload.to_json)
@@ -36,8 +36,18 @@ class AnnotationsController < ApplicationController
     }
   end
 
+  # @todo remove target_id fallback when target_uri field name change deployed
+  #   to production Annotations API
   def annotations_for_tune(tune)
-    search = Europeana::API.annotation.search(annotations_api_search_params(tune))
+    begin
+      search = Europeana::API.annotation.search(annotations_api_search_params(tune))
+    rescue Europeana::API::Errors::ServerError => error
+      if error.message == 'An unexpected server exception occured! undefined field target_uri'
+        search = Europeana::API.annotation.search(annotations_api_search_params(tune, target_field_name: 'target_id'))
+      else
+        raise
+      end
+    end
 
     return [] unless search['items']
     return [search['items']].flatten unless search['items'].any? { |item| item.is_a?(String) }
@@ -50,13 +60,13 @@ class AnnotationsController < ApplicationController
     end
   end
 
-  def target_id(tune)
+  def target_uri(tune)
     "http://data.europeana.eu/item#{tune.europeana_record_id}"
   end
 
-  def annotations_api_search_params(tune)
+  def annotations_api_search_params(tune, target_field_name: 'target_uri')
     {
-      query: %(target_id:"#{target_id(tune)}"),
+      query: %(#{target_field_name}:"#{target_uri(tune)}"),
       pageSize: 100
     }.merge(annotations_api_env_params)
   end
