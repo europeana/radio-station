@@ -6,6 +6,7 @@ gem 'rails', '~> 5.0.2'
 gem 'clockwork', '~> 2.0'
 gem 'europeana-api', github: 'europeana/europeana-api-client-ruby', branch: 'develop'
 gem 'jbuilder', '~> 2.6'
+gem 'mail', '2.6.6.rc1' # locked pending stable release with fix for https://github.com/mikel/mail/pull/1097
 gem 'pg', '~> 0.18'
 gem 'rack-cors'
 gem 'sidekiq'
