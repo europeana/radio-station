@@ -1,44 +1,42 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.2'
+gem 'rails', '~> 5.2.0'
 
-gem 'clockwork', '~> 2.0'
-gem 'europeana-api', github: 'europeana/europeana-api-client-ruby', branch: 'develop'
-gem 'jbuilder', '~> 2.6'
-gem 'mail', '2.6.6.rc1' # locked pending stable release with fix for https://github.com/mikel/mail/pull/1097
-gem 'pg', '~> 0.18'
+gem 'clockwork'
+gem 'europeana-api'
+gem 'jbuilder'
+gem 'mail'
+gem 'pg'
 gem 'rack-cors'
 gem 'sidekiq'
-gem 'stringex', '~> 2.6'
+gem 'stringex'
 
 group :production do
-  gem 'europeana-logging', '~> 0.1.1'
+  gem 'europeana-logging'
 end
 
 group :production, :development do
-  gem 'newrelic_rpm', '~> 3.16'
-  gem 'puma', '~> 3.0'
+  gem 'newrelic_rpm'
+  gem 'puma'
 end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'dotenv-rails', '~> 2.1'
+  gem 'dotenv-rails'
   gem 'foreman'
-  gem 'rubocop', '0.39.0', require: false # only update when Hound does
+  gem 'rubocop', '0.54', require: false
 end
 
 group :development do
-  gem 'listen', '~> 3.0.5'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'listen'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
 end
 
 group :test do
   gem 'coveralls', require: false
-  gem 'shoulda-context', '~> 1.2'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-context'
+  gem 'shoulda-matchers'
   gem 'webmock'
 end
