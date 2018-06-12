@@ -1,6 +1,7 @@
 # Europeana Radio Station
 
-[![Build Status](https://travis-ci.org/europeana/radio-station.svg?branch=develop)](https://travis-ci.org/europeana/radio-station) [![Coverage Status](https://coveralls.io/repos/github/europeana/radio-station/badge.svg?branch=develop)](https://coveralls.io/github/europeana/radio-station?branch=develop) [![security](https://hakiri.io/github/europeana/radio-station/develop.svg)](https://hakiri.io/github/europeana/radio-station/develop)
+[![Build Status](https://travis-ci.org/europeana/radio-station.svg?branch=develop)](https://travis-ci.org/europeana/radio-station) [![Security](https://hakiri.io/github/europeana/radio-station/develop.svg)](https://hakiri.io/github/europeana/radio-station/develop) [![Maintainability](https://api.codeclimate.com/v1/badges/b730a787cbe77e612784/maintainability)](https://codeclimate.com/github/europeana/radio-station/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/b730a787cbe77e612784/test_coverage)](https://codeclimate.com/github/europeana/radio-station/test_coverage)
+
 
 Broadcasting playlists of tunes from the Europeana collections.
 
@@ -9,7 +10,7 @@ For a player ready to work with these playlists, see the
 
 ## Requirements
 
-* Ruby 2.3.1
+* Ruby 2.5.0
 * PostgreSQL
 * Redis
 * [Europeana API key](http://labs.europeana.eu/api/registration)

@@ -5,17 +5,8 @@ require 'rails/test_help'
 
 require 'webmock/minitest'
 
-require 'coveralls'
 require 'simplecov'
-
-# Test coverage reports
-if Coveralls.will_run?.nil?
-  # Generate Simplecov report during local testing
-  SimpleCov.start
-else
-  # Submit Coveralls report in CI env
-  Coveralls.wear!('rails')
-end
+SimpleCov.start
 
 module ActiveSupport
   class TestCase
