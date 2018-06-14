@@ -28,3 +28,6 @@
 
 # Ignore CF manifest
 /manifest.yml
+
+# Ignore database.yml
+/config/database.yml
