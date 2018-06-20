@@ -85,7 +85,7 @@ class Origin < ApplicationRecord
   end
 
   def title
-    metadata['title'].first
+    metadata['title']&.first || ''
   end
 
   def proxy(europeana:)
