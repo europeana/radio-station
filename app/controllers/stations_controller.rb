@@ -49,7 +49,7 @@ class StationsController < ApplicationController
 
   def offset
     o = (params[:start] || 0).to_i
-    o -= @station.playlist_length while o >= @station.playlist_length
+    o -= @station.playlist_length while o.nonzero? && o >= @station.playlist_length
     o
   end
 end
