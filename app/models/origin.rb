@@ -4,7 +4,7 @@
 class Origin < ApplicationRecord
   include EDM::Rights
 
-  has_many :tunes, dependent: :nullify
+  has_many :tunes, dependent: :destroy
 
   validates :europeana_record_id, uniqueness: true, presence: true
   validates :metadata, presence: true
@@ -85,7 +85,7 @@ class Origin < ApplicationRecord
   end
 
   def title
-    metadata['title'].first
+    metadata['title']&.first || ''
   end
 
   def proxy(europeana:)
