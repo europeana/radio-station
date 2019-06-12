@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.5.0
+  - 2.5.5
 notifications:
   email: false
 sudo: false
